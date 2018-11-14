@@ -7970,10 +7970,10 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react-lines@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-lines/-/react-lines-0.3.1.tgz#455973738a8f88e0d94bb7580c870b860f819dc0"
-  integrity sha512-+f2Qql2118ufI5++g9s//wiQsJfYPr0DWTlHV7jg/5dBlUhxHuRSWvAySL81dcN5lqzv4yf8ooajF84mwkohcg==
+react-lines@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.npmjs.org/react-lines/-/react-lines-0.3.4.tgz#4bdc15df9054b460348d39acc14e7ceb318e5f7d"
+  integrity sha512-KYWb/6dLzZliP4uCaXIzB8GYEOzk6OYNu1eQqhnRK8E16lkOLP0l8cRl3OKOwo/6LWgyq5f6j6rnH5ka819wNQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.0-14"
     "@fortawesome/free-solid-svg-icons" "^5.1.0-11"
