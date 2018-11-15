@@ -25,9 +25,6 @@ export default class Nodes extends React.Component {
 	componentDidMount() {
 		console.log("connections loaded");
 	}
-	componentDidUpdate() {
-		console.log("update");
-	}
 	handleMovement = (e, data) => {
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
@@ -84,13 +81,15 @@ export default class Nodes extends React.Component {
 	}
 
 	consoleToggleListener = () => {
-		document.getElementsByClassName("line-node").forEach(element => {
+		const nodes = document.getElementsByClassName("line-node");
+		Array.from(nodes).forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
 		});
 	};
 
 	insertLine() {
-		document.getElementsByClassName("line-node").forEach(element => {
+		const nodes = document.getElementsByClassName("line-node");
+		Array.from(nodes).forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
 			element.addEventListener("click", this.connectLine);
 		});
