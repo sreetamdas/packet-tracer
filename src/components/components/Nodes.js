@@ -9,7 +9,7 @@ class ReactLines extends React.Component {
 		super();
 
 		this.handleMovement = this.handleMovement.bind(this);
-		this.handleClick = this.handleClick.bind(this);
+		this.connectLine = this.connectLine.bind(this);
 		this.generateNode = this.generateNode.bind(this);
 		this.insertLine = this.insertLine.bind(this);
 		this.Nodes = this.Nodes.bind(this);
@@ -25,14 +25,13 @@ class ReactLines extends React.Component {
 		};
 	}
 	componentDidMount() {
-		console.log("loaded");
+		console.log("lines loaded");
 	}
-	handleMovement(e, data) {
+	handleMovement = (e, data) => {
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
 
 		if (!el) {
-			console.log("false");
 			return false;
 		}
 		const box = el.getBoundingClientRect();
@@ -46,15 +45,14 @@ class ReactLines extends React.Component {
 		this.setState({
 			coordinates: updated_coordinates
 		});
-	}
+	};
 
-	handleClick(e) {
+	connectLine(e) {
 		console.log("target:", e.target.id);
 
 		const node = e.target.id;
 
 		if (!this.state.first_node_in_line) {
-			console.log("here1");
 			const connections = { ...this.state.lines };
 			if (
 				typeof connections[`${node}`] === "undefined" ||
@@ -64,91 +62,99 @@ class ReactLines extends React.Component {
 			) {
 				connections[`${node}`] = [];
 			}
-			console.log("second", { connections });
-			this.setState(
-				{
-					message: "click the next one",
-					first_node_in_line: node,
-					lines: connections
-				},
-				console.log("set1")
-			);
-			console.log("completed1");
+			this.setState({
+				message: "click the next one",
+				first_node_in_line: node,
+				lines: connections
+			});
 		} else {
-			console.log("here2");
 			const connections = { ...this.state.lines };
 			console.log({ connections });
 			connections[`${this.state.first_node_in_line}`].push(node);
-			console.log("updated:", { connections });
 
-			this.setState(
-				{
-					message: "done",
-					lines: connections,
-					first_node_in_line: false,
-					show: true
-				},
-				console.log("state:", this.state.lines)
-			);
-			console.log("removing listener");
-			document.removeEventListener("click", this.handleClick);
+			this.setState({
+				message: "done",
+				lines: connections,
+				first_node_in_line: false,
+				show: true
+			});
+			document.removeEventListener("click", this.connectLine);
 		}
-		console.log("phase over");
 	}
 
+	toggleConsole = (e, data) => {
+		console.log(e.target.id);
+	};
+
 	generateNode() {
-		console.log("generating");
 		const node = Math.random()
 			.toString(36)
 			.substr(2, 6);
-		// second = Math.random()
-		// 	.toString(36)
-		// 	.substr(2, 6);
 
 		console.log("gen: ", node);
 
-		this.setState({
-			nodes: [...this.state.nodes, node],
-			active: true
-		});
-	}
-
-	insertNodePair(first, second) {
-		console.log("inserting");
-	}
-
-	insertLine() {
-		document.addEventListener("click", this.handleClick);
-	}
-
-	filler() {
-		this.Nodes();
-	}
-
-	Nodes() {
-		const nodes = this.state.nodes;
-		console.log("nodes = ", { nodes });
-		return (
-			<React.Fragment>
-				{nodes.map(node => (
-					<Draggable onDrag={this.handleMovement} key={node} onClick={() => this.handleClick()}>
-						<div className="shrink">
-							<FontAwesomeIcon id={node} icon={faDesktop} size="3x" style={{ backgroundColor: "white" }} />
-						</div>
-					</Draggable>
-				))}
-			</React.Fragment>
+		this.setState(
+			{
+				nodes: [...this.state.nodes, node],
+				active: true
+			},
+			() => this.Nodes()
 		);
 	}
 
+	consoleToggleListener = () => {
+		const nodes = document.getElementsByClassName("line-node");
+		console.log({ nodes });
+
+		Array.from(nodes).forEach(element => {
+			element.addEventListener("dblclick", this.toggleConsole);
+		});
+	};
+
+	insertLine() {
+		// document.getElementsByClassName("line-node").removeEventListener("dblclick", this.toggleConsole);
+		const nodes = document.getElementsByClassName("line-node");
+		Array.from(nodes).forEach(element => {
+			element.addEventListener("dblclick", this.toggleConsole);
+			element.addEventListener("click", this.connectLine);
+		});
+		// document.getElementsByClassName("line-node").addEventListener("click", this.connectLine);
+	}
+
+	// filler() {
+	// 	this.Nodes();
+	// }
+
+	Nodes() {
+		const nodes = this.state.nodes;
+		console.log("here");
+		return (
+			<React.Fragment>
+				{nodes.map(
+					node => (
+						<Draggable onDrag={this.handleMovement} key={node}>
+							<div className="shrink">
+								<FontAwesomeIcon
+									id={node}
+									icon={faDesktop}
+									size="3x"
+									style={{ backgroundColor: "white" }}
+									className="line-node"
+								/>
+							</div>
+						</Draggable>
+					),
+					this.consoleToggleListener()
+				)}
+			</React.Fragment>
+		);
+		console.log("came here");
+	}
+
 	Lines() {
-		console.log("in lines");
 		const coordinates = [...this.state.coordinates],
 			lines = { ...this.state.lines },
 			nodes = [...this.state.nodes];
-
-		console.log({ lines }, "ty:", typeof lines);
-		console.log(this.state.lines);
 
 		if (typeof lines === "undefined" || lines === null || lines.length === null || lines.length === 0) {
 			return null;
@@ -157,17 +163,10 @@ class ReactLines extends React.Component {
 		const lines_keys = Object.keys(lines);
 		const lines_values = Object.values(lines);
 
-		console.log({ lines_keys }, { lines_values });
 		return (
 			<React.Fragment>
 				{lines_keys.map((node, index) =>
 					lines_values[index].map(dest => (
-						// console.log(
-						// 	{ index },
-						// 	{ node },
-						// 	{ dest },
-						// 	coordinates[`${nodes.indexOf(dest)}`],
-						// ),
 						<Line
 							key={dest}
 							x0={coordinates[`${nodes.indexOf(node)}`][0]}
