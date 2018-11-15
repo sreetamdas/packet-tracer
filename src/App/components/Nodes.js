@@ -5,7 +5,7 @@ import Draggable from "react-draggable";
 import Line from "react-progress-line";
 import Modal from "react-modal";
 
-class ReactLines extends React.Component {
+export default class Nodes extends React.Component {
 	constructor() {
 		super();
 
@@ -72,6 +72,7 @@ class ReactLines extends React.Component {
 			const connections = { ...this.state.lines };
 			console.log({ connections });
 			connections[`${this.state.first_node_in_line}`].push(node);
+			this.props.add_connection(this.state.first_node_in_line, node);
 
 			this.setState({
 				message: "done",
@@ -79,6 +80,7 @@ class ReactLines extends React.Component {
 				first_node_in_line: false,
 				show: true
 			});
+
 			document.removeEventListener("click", this.connectLine);
 		}
 	}
@@ -95,10 +97,13 @@ class ReactLines extends React.Component {
 
 		console.log("gen: ", node);
 
-		this.setState({
-			nodes: [...this.state.nodes, node],
-			active: true
-		});
+		this.setState(
+			{
+				nodes: [...this.state.nodes, node],
+				active: true
+			},
+			() => this.props.add_node(node)
+		);
 	}
 
 	consoleToggleListener = () => {
@@ -190,5 +195,3 @@ class ReactLines extends React.Component {
 		);
 	}
 }
-
-export default ReactLines;
