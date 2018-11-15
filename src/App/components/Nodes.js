@@ -4,6 +4,8 @@ import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
 import Modal from "react-modal";
+import checkConnectivity from "../logic/connectivity";
+
 
 export default class Nodes extends React.Component {
 	constructor() {

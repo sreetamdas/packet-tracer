@@ -1,13 +1,12 @@
 import { createStore } from "redux";
 
 import rootReducer from "./reducers/index";
-import coordinates from './reducers/coordinates'
 
 const defaultState = {
 	nodes: [],
 	connections: [],
 	coordinates: [],
-	
+
 };
 
 const store = createStore(
