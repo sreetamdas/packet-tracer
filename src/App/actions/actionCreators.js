@@ -13,3 +13,12 @@ export function add_connection(first_node, second_node) {
 		second_node
 	};
 }
+
+export function update_coordinates(id, x, y) {
+	return {
+		type: "UPDATE_COORDINATES",
+		id,
+		x,
+		y
+	};
+}

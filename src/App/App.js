@@ -6,7 +6,9 @@ import Main from "./Main";
 function mapStateToProps(state) {
 	return {
 		nodes: state.nodes,
-		connections: state.connections
+		connections: state.connections,
+		coordinates: state.coordinates,
+		console: state.console
 	};
 }
 

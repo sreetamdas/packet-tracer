@@ -43,6 +43,8 @@ export default class Nodes extends React.Component {
 		const updated_coordinates = [...this.state.coordinates];
 		updated_coordinates[index] = [x, y];
 
+		this.props.update_coordinates(index, x, y);
+
 		this.setState({
 			coordinates: updated_coordinates
 		});
@@ -149,10 +151,17 @@ export default class Nodes extends React.Component {
 
 	Lines() {
 		const coordinates = [...this.state.coordinates],
-			lines = { ...this.state.lines },
-			nodes = [...this.state.nodes];
+			lines = { ...this.props.connections },
+			nodes = [...this.props.nodes];
 
-		if (typeof lines === "undefined" || lines === null || lines.length === null || lines.length === 0) {
+		console.log({ lines });
+
+		if (
+			typeof lines === "undefined" ||
+			lines === null ||
+			lines.length === null ||
+			lines.length === 0
+		) {
 			return null;
 		}
 
