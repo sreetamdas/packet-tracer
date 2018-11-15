@@ -93,13 +93,10 @@ class ReactLines extends React.Component {
 
 		console.log("gen: ", node);
 
-		this.setState(
-			{
-				nodes: [...this.state.nodes, node],
-				active: true
-			},
-			() => this.Nodes()
-		);
+		this.setState({
+			nodes: [...this.state.nodes, node],
+			active: true
+		});
 	}
 
 	consoleToggleListener = () => {
