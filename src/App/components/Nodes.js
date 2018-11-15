@@ -19,10 +19,7 @@ export default class Nodes extends React.Component {
 			active: false,
 			show: false,
 			message: null,
-			first_node_in_line: false
-			// nodes: [],
-			// coordinates: [],
-			// connections: []
+			first_node_in_line: false,
 		};
 	}
 	componentDidMount() {
@@ -43,14 +40,7 @@ export default class Nodes extends React.Component {
 		const y = box.bottom - box.height / 2;
 		const index = this.props.nodes.indexOf(id);
 
-		// const updated_coordinates = [...this.state.coordinates];
-		// updated_coordinates[index] = [x, y];
-
 		this.props.update_coordinates(index, x, y);
-
-		// this.setState({
-		// 	coordinates: updated_coordinates
-		// });
 	};
 
 	connectLine(e) {
@@ -59,38 +49,24 @@ export default class Nodes extends React.Component {
 		const node = e.target.id;
 
 		if (!this.state.first_node_in_line) {
-			// const connections = { ...this.state.connections };
-			// if (
-			// 	typeof connections[`${node}`] === "undefined" ||
-			// 	connections[`${node}`] === null ||
-			// 	connections[`${node}`].length === null ||
-			// 	connections[`${node}`].length === 0
-			// ) {
-			// 	connections[`${node}`] = [];
-			// }
 			this.setState({
 				message: "click the next one",
-				first_node_in_line: node
-				// connections: connections
+				first_node_in_line: node,
 			});
 		} else {
-			// const connections = { ...this.state.connections };
-			// console.log({ connections });
-			// connections[`${this.state.first_node_in_line}`].push(node);
 			this.props.add_connection(this.state.first_node_in_line, node);
 
 			this.setState({
 				message: "done",
-				// connections: connections,
 				first_node_in_line: false,
-				show: true
+				show: true,
 			});
 
 			document.removeEventListener("click", this.connectLine);
 		}
 	}
 
-	toggleConsole = (e, data) => {
+	toggleConsole = e => {
 		console.log(e.target.id);
 		Modal.setAppElement("#console");
 	};
@@ -102,26 +78,19 @@ export default class Nodes extends React.Component {
 
 		console.log("gen: ", node);
 		this.props.add_node(node);
-		this.setState(
-			{
-				// nodes: [...this.state.nodes, node],
-				active: true
-			}
-			// () => this.props.add_node(node)
-		);
+		this.setState({
+			active: true,
+		});
 	}
 
 	consoleToggleListener = () => {
-		const nodes = document.getElementsByClassName("line-node");
-
-		Array.from(nodes).forEach(element => {
+		document.getElementsByClassName("line-node").forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
 		});
 	};
 
 	insertLine() {
-		const nodes = document.getElementsByClassName("line-node");
-		Array.from(nodes).forEach(element => {
+		document.getElementsByClassName("line-node").forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
 			element.addEventListener("click", this.connectLine);
 		});
@@ -129,6 +98,15 @@ export default class Nodes extends React.Component {
 
 	Nodes() {
 		const { nodes } = this.props;
+		if (
+			typeof nodes === "undefined" ||
+			nodes === null ||
+			nodes.length === null ||
+			nodes.length === 0
+		) {
+			console.log("no nodes");
+			return null;
+		}
 		console.log("nodes");
 		return (
 			<React.Fragment>
@@ -146,7 +124,7 @@ export default class Nodes extends React.Component {
 							</div>
 						</Draggable>
 					),
-					this.consoleToggleListener()
+					this.consoleToggleListener(),
 				)}
 			</React.Fragment>
 		);
@@ -166,13 +144,13 @@ export default class Nodes extends React.Component {
 			return null;
 		}
 
-		const line_keys = Object.keys(connections);
-		const line_values = Object.values(connections);
+		const lines_keys = Object.keys(connections);
+		const lines_values = Object.values(connections);
 
 		return (
 			<React.Fragment>
-				{line_keys.map((node, index) =>
-					line_values[index].map(dest => (
+				{lines_keys.map((node, index) =>
+					lines_values[index].map(dest => (
 						<Line
 							key={dest}
 							x0={coordinates[`${nodes.indexOf(node)}`][0]}
@@ -182,7 +160,7 @@ export default class Nodes extends React.Component {
 							borderWidth={3}
 							zIndex={-1}
 						/>
-					))
+					)),
 				)}
 			</React.Fragment>
 		);
@@ -199,7 +177,7 @@ export default class Nodes extends React.Component {
 				line follows:
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
-				<div>{this.state.active && this.Nodes()}</div>
+				<div>{this.Nodes()}</div>
 				<div id="console" />
 			</div>
 		);
