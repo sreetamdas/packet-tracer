@@ -104,7 +104,6 @@ class ReactLines extends React.Component {
 
 	consoleToggleListener = () => {
 		const nodes = document.getElementsByClassName("line-node");
-		console.log({ nodes });
 
 		Array.from(nodes).forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
@@ -112,22 +111,15 @@ class ReactLines extends React.Component {
 	};
 
 	insertLine() {
-		// document.getElementsByClassName("line-node").removeEventListener("dblclick", this.toggleConsole);
 		const nodes = document.getElementsByClassName("line-node");
 		Array.from(nodes).forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
 			element.addEventListener("click", this.connectLine);
 		});
-		// document.getElementsByClassName("line-node").addEventListener("click", this.connectLine);
 	}
-
-	// filler() {
-	// 	this.Nodes();
-	// }
 
 	Nodes() {
 		const nodes = this.state.nodes;
-		console.log("here");
 		return (
 			<React.Fragment>
 				{nodes.map(
