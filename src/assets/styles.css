@@ -80,7 +80,7 @@ a:hover {
 }
 
 button {
-	background-color: transparent;
+	background-color: black;
 	border: 2px solid blue;
 	/* border-radius: 10px; */
 	padding: 20px;
