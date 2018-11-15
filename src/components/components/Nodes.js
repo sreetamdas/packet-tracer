@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
+import Modal from "react-modal";
 
 class ReactLines extends React.Component {
 	constructor() {
@@ -84,6 +85,7 @@ class ReactLines extends React.Component {
 
 	toggleConsole = (e, data) => {
 		console.log(e.target.id);
+		Modal.setAppElement("#console");
 	};
 
 	generateNode() {
@@ -183,6 +185,7 @@ class ReactLines extends React.Component {
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
 				<div>{this.state.active && this.Nodes()}</div>
+				<div id="console" />
 			</div>
 		);
 	}
