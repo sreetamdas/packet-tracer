@@ -19,14 +19,17 @@ export default class Nodes extends React.Component {
 			active: false,
 			show: false,
 			message: null,
-			first_node_in_line: false,
-			nodes: [],
-			coordinates: [],
-			lines: []
+			first_node_in_line: false
+			// nodes: [],
+			// coordinates: [],
+			// connections: []
 		};
 	}
 	componentDidMount() {
-		console.log("lines loaded");
+		console.log("connections loaded");
+	}
+	componentDidUpdate() {
+		console.log("update");
 	}
 	handleMovement = (e, data) => {
 		const id = data.node.firstChild.id;
@@ -38,16 +41,16 @@ export default class Nodes extends React.Component {
 		const box = el.getBoundingClientRect();
 		const x = box.left + box.width / 2;
 		const y = box.bottom - box.height / 2;
-		const index = this.state.nodes.indexOf(id);
+		const index = this.props.nodes.indexOf(id);
 
-		const updated_coordinates = [...this.state.coordinates];
-		updated_coordinates[index] = [x, y];
+		// const updated_coordinates = [...this.state.coordinates];
+		// updated_coordinates[index] = [x, y];
 
 		this.props.update_coordinates(index, x, y);
 
-		this.setState({
-			coordinates: updated_coordinates
-		});
+		// this.setState({
+		// 	coordinates: updated_coordinates
+		// });
 	};
 
 	connectLine(e) {
@@ -56,29 +59,29 @@ export default class Nodes extends React.Component {
 		const node = e.target.id;
 
 		if (!this.state.first_node_in_line) {
-			const connections = { ...this.state.lines };
-			if (
-				typeof connections[`${node}`] === "undefined" ||
-				connections[`${node}`] === null ||
-				connections[`${node}`].length === null ||
-				connections[`${node}`].length === 0
-			) {
-				connections[`${node}`] = [];
-			}
+			// const connections = { ...this.state.connections };
+			// if (
+			// 	typeof connections[`${node}`] === "undefined" ||
+			// 	connections[`${node}`] === null ||
+			// 	connections[`${node}`].length === null ||
+			// 	connections[`${node}`].length === 0
+			// ) {
+			// 	connections[`${node}`] = [];
+			// }
 			this.setState({
 				message: "click the next one",
-				first_node_in_line: node,
-				lines: connections
+				first_node_in_line: node
+				// connections: connections
 			});
 		} else {
-			const connections = { ...this.state.lines };
-			console.log({ connections });
-			connections[`${this.state.first_node_in_line}`].push(node);
+			// const connections = { ...this.state.connections };
+			// console.log({ connections });
+			// connections[`${this.state.first_node_in_line}`].push(node);
 			this.props.add_connection(this.state.first_node_in_line, node);
 
 			this.setState({
 				message: "done",
-				lines: connections,
+				// connections: connections,
 				first_node_in_line: false,
 				show: true
 			});
@@ -98,13 +101,13 @@ export default class Nodes extends React.Component {
 			.substr(2, 6);
 
 		console.log("gen: ", node);
-
+		this.props.add_node(node);
 		this.setState(
 			{
-				nodes: [...this.state.nodes, node],
+				// nodes: [...this.state.nodes, node],
 				active: true
-			},
-			() => this.props.add_node(node)
+			}
+			// () => this.props.add_node(node)
 		);
 	}
 
@@ -125,7 +128,8 @@ export default class Nodes extends React.Component {
 	}
 
 	Nodes() {
-		const nodes = this.state.nodes;
+		const { nodes } = this.props;
+		console.log("nodes");
 		return (
 			<React.Fragment>
 				{nodes.map(
@@ -146,32 +150,29 @@ export default class Nodes extends React.Component {
 				)}
 			</React.Fragment>
 		);
-		console.log("came here");
 	}
 
 	Lines() {
-		const coordinates = [...this.state.coordinates],
-			lines = { ...this.props.connections },
-			nodes = [...this.props.nodes];
+		const { coordinates, connections, nodes } = this.props;
 
-		console.log({ lines });
+		console.log("lines");
 
 		if (
-			typeof lines === "undefined" ||
-			lines === null ||
-			lines.length === null ||
-			lines.length === 0
+			typeof connections === "undefined" ||
+			connections === null ||
+			connections.length === null ||
+			connections.length === 0
 		) {
 			return null;
 		}
 
-		const lines_keys = Object.keys(lines);
-		const lines_values = Object.values(lines);
+		const line_keys = Object.keys(connections);
+		const line_values = Object.values(connections);
 
 		return (
 			<React.Fragment>
-				{lines_keys.map((node, index) =>
-					lines_values[index].map(dest => (
+				{line_keys.map((node, index) =>
+					line_values[index].map(dest => (
 						<Line
 							key={dest}
 							x0={coordinates[`${nodes.indexOf(node)}`][0]}
