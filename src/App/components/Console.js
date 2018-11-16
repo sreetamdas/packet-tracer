@@ -8,21 +8,24 @@ export default class Console extends React.Component {
 		this.state = {
 			open: false
 		};
+
+		const { consoleState } = this.props;
 		this.onOpenModal = this.onOpenModal.bind(this);
 		this.onCloseModal = this.onCloseModal.bind(this);
 	}
+
 	onOpenModal = () => {
-		this.setState({ open: true });
+		this.props.setConsoleState(true);
 	};
 
 	onCloseModal = () => {
-		this.setState({ open: false });
+		this.props.setConsoleState(false);
 	};
 
 	render() {
 		return (
 			<React.Fragment>
-				<Modal open={this.state.open} onClose={this.onCloseModal} center>
+				<Modal open={consoleState} onClose={this.onCloseModal} center>
 					<h2>Simple centered modal</h2>
 					<Terminal />
 				</Modal>

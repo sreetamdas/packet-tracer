@@ -30,3 +30,10 @@ export function update_coordinates(id, x, y) {
 		y
 	};
 }
+
+export function setConsoleState(open) {
+	return {
+		type: "SET_CONSOLE_STATE",
+		open
+	};
+}

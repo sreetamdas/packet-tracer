@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 
 export default class Nodes extends React.Component {
 	constructor() {
@@ -74,7 +74,6 @@ export default class Nodes extends React.Component {
 
 	toggleConsole = e => {
 		console.log(e.target.id);
-		Modal.setAppElement("#console");
 	};
 
 	generateNode() {

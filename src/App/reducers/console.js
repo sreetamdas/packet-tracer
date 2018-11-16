@@ -1,7 +1,7 @@
 const console = (state = [], action) => {
 	switch (action.type) {
-		case "OPEN_CONSOLE":
-			return { ...state, console_is_open: true };
+		case "SET_CONSOLE_STATE":
+			return { ...state, open: action.open };
 		default:
 			return state;
 	}
