@@ -72,11 +72,6 @@ export default class Nodes extends React.Component {
 		}
 	}
 
-	toggleConsole = () => {
-		// console.log(e.target.id);
-		this.props.set_console_state(true);
-	};
-
 	generateNode() {
 		const node = Math.random()
 			.toString(36)
@@ -94,6 +89,11 @@ export default class Nodes extends React.Component {
 		Array.from(nodes).forEach(element => {
 			element.addEventListener("dblclick", this.toggleConsole);
 		});
+	};
+
+	toggleConsole = e => {
+		console.log(e.target.id);
+		this.props.set_console_state(true, e.target.id);
 	};
 
 	insertLine() {
@@ -185,7 +185,7 @@ export default class Nodes extends React.Component {
 				<h1>This is React Lines.</h1>
 				<button onClick={this.generateNode}>New Node</button>
 				<button onClick={this.insertLine}>Draw Line</button>
-				<button onClick={this.toggleConsole}>Toggle Console</button>
+				<button onClick={this.consoleToggleListener}>Toggle Console</button>
 				{this.state.message}
 				<br />
 				line follows:

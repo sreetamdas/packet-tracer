@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 export function add_node(id) {
 	return {
 		type: "ADD_NODE",
@@ -33,9 +31,10 @@ export function update_coordinates(id, x, y) {
 	};
 }
 
-export function set_console_state(open) {
+export function set_console_state(open, id = "none") {
 	return {
 		type: "SET_CONSOLE_STATE",
-		open
+		open,
+		id
 	};
 }

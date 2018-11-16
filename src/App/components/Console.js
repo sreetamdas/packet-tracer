@@ -11,6 +11,10 @@ export default class Console extends React.Component {
 		this.onCloseModal = this.onCloseModal.bind(this);
 	}
 
+	componentWillUnmount() {
+		console.log("unmounted");
+	}
+
 	setConsoleState = open => {
 		this.props.set_console_state(open);
 	};
@@ -19,15 +23,25 @@ export default class Console extends React.Component {
 		this.props.set_console_state(true);
 	};
 
+	closingModal = () => {
+		console.log("unmounted3");
+	};
+
 	onCloseModal = () => {
+		console.log("unmounting");
 		this.props.set_console_state(false);
 	};
 
 	render() {
 		return (
 			<React.Fragment>
-				<Modal open={this.props.console.open} onClose={this.onCloseModal}>
-					<h2>Simple centered modal</h2>
+				<Modal
+					open={this.props.console.open}
+					onExited={this.closingModal}
+					onClose={this.onCloseModal}
+					animationDuration={0}
+				>
+					<h2>{this.props.console.id}</h2>
 					<Terminal />
 				</Modal>
 			</React.Fragment>

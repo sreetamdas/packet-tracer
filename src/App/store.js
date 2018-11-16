@@ -7,7 +7,8 @@ const defaultState = {
 	connections: [],
 	coordinates: [],
 	console: {
-		open: false
+		open: false,
+		id: null
 	}
 };
 
