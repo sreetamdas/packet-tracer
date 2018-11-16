@@ -5,18 +5,15 @@ import store from "../store";
 
 const checkConnectivity = (first, second) => {
 	const { connections } = store.getState();
-	if (
-		typeof connections[first] === "undefined" &&
-		typeof connections[second] === "undefined"
-	) {
-		return false;
-	} else if (
-		connections[first].indexOf(second) !== -1 ||
-		connections[second].indexOf(first) !== -1
-	) {
+	if (typeof connections[first] !== "undefined" && connections[first].indexOf(second) !== -1) {
+		console.log("1");
 		return true;
+	} else if (typeof connections[second] !== "undefined" && connections[second].indexOf(first) !== -1) {
+		console.log("2");
+		return true;
+	} else {
+		return false;
 	}
-	return false;
 };
 
 // store.subscribe(checkConnectivity);
