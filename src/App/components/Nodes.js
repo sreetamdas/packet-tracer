@@ -19,7 +19,6 @@ export default class Nodes extends React.Component {
 			active: false,
 			show: false,
 			message: null,
-			coordinates: [],
 			first_node_in_line: false,
 		};
 	}
@@ -27,7 +26,6 @@ export default class Nodes extends React.Component {
 		console.log("connections loaded");
 	}
 	handleMovement = (e, data) => {
-		console.log("called1");
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
 
@@ -39,19 +37,7 @@ export default class Nodes extends React.Component {
 		const y = box.bottom - box.height / 2;
 		const index = Object.keys(this.props.nodes).indexOf(id);
 
-		const updated_coordinates = [...this.state.coordinates];
-		updated_coordinates[index] = [x, y];
-
-		this.setState({
-			coordinates: updated_coordinates,
-			moving_node: index,
-		});
-	};
-
-	updateCoordinatesInReduxStore = (e, data, index, x, y) => {
-		console.log({ e }, { data });
-		console.log("called");
-		// this.props.update_coordinates(index, x, y);
+		this.props.update_coordinates(index, x, y);
 	};
 
 	connectLine(e) {
@@ -136,14 +122,7 @@ export default class Nodes extends React.Component {
 			<React.Fragment>
 				{Object.keys(nodes).map(
 					node => (
-						<Draggable
-							onDrag={this.handleMovement}
-							key={node}
-							onMouseDown={this.updateCoordinatesInReduxStore(
-								this.state.moving_node,
-								{ ...this.state.coordinates },
-							)}
-						>
+						<Draggable onDrag={this.handleMovement} key={node.toString()}>
 							<div className="shrink">
 								<FontAwesomeIcon
 									id={node}
@@ -186,7 +165,7 @@ export default class Nodes extends React.Component {
 				{lines_keys.map((node, index) =>
 					lines_values[index].map(dest => (
 						<Line
-							key={dest}
+							key={`${dest}-${dest}`}
 							x0={coordinates[`${nodes.indexOf(node)}`][0]}
 							y0={coordinates[`${nodes.indexOf(node)}`][1]}
 							x1={coordinates[`${nodes.indexOf(dest)}`][0]}
@@ -204,7 +183,7 @@ export default class Nodes extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<h1>This is React Lines.</h1>
 				<button onClick={this.generateNode}>New Node</button>
 				<button onClick={this.insertLine}>Draw Line</button>
@@ -216,9 +195,9 @@ export default class Nodes extends React.Component {
 				line follows:
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
-				<div>{this.Nodes()}</div>
+				{this.Nodes()}
 				<div id="console" />
-			</div>
+			</React.Fragment>
 		);
 	}
 }

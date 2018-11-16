@@ -92,3 +92,7 @@ button {
 button:hover {
 	background-color: blue;
 }
+
+.shrink {
+	display: inline-block !important;
+}
