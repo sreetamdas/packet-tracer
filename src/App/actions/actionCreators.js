@@ -14,6 +14,14 @@ export function add_connection(first_node, second_node) {
 	};
 }
 
+export function add_mac(id, mac) {
+	return {
+		type: "ADD_MAC",
+		id,
+		mac
+	};
+}
+
 export function update_coordinates(id, x, y) {
 	return {
 		type: "UPDATE_COORDINATES",

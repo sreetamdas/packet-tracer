@@ -4,8 +4,6 @@ import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
 import Modal from "react-modal";
-import checkConnectivity from "../logic/connectivity";
-
 
 export default class Nodes extends React.Component {
 	constructor() {
@@ -21,7 +19,7 @@ export default class Nodes extends React.Component {
 			active: false,
 			show: false,
 			message: null,
-			first_node_in_line: false,
+			first_node_in_line: false
 		};
 	}
 	componentDidMount() {
@@ -37,7 +35,7 @@ export default class Nodes extends React.Component {
 		const box = el.getBoundingClientRect();
 		const x = box.left + box.width / 2;
 		const y = box.bottom - box.height / 2;
-		const index = this.props.nodes.indexOf(id);
+		const index = Object.keys(this.props.nodes).indexOf(id);
 
 		this.props.update_coordinates(index, x, y);
 	};
@@ -50,18 +48,28 @@ export default class Nodes extends React.Component {
 		if (!this.state.first_node_in_line) {
 			this.setState({
 				message: "click the next one",
-				first_node_in_line: node,
+				first_node_in_line: node
 			});
 		} else {
-			this.props.add_connection(this.state.first_node_in_line, node);
+			this.props.add_connection(
+				this.state.first_node_in_line,
+				node
+			);
 
 			this.setState({
 				message: "done",
 				first_node_in_line: false,
-				show: true,
+				show: true
 			});
 
-			document.removeEventListener("click", this.connectLine);
+			const nodes = document.getElementsByClassName("line-node");
+			Array.from(nodes).forEach(element => {
+				element.addEventListener(
+					"dblclick",
+					this.toggleConsole
+				);
+				element.removeEventListener("click", this.connectLine);
+			});
 		}
 	}
 
@@ -78,7 +86,7 @@ export default class Nodes extends React.Component {
 		console.log("gen: ", node);
 		this.props.add_node(node);
 		this.setState({
-			active: true,
+			active: true
 		});
 	}
 
@@ -92,47 +100,55 @@ export default class Nodes extends React.Component {
 	insertLine() {
 		const nodes = document.getElementsByClassName("line-node");
 		Array.from(nodes).forEach(element => {
-			element.addEventListener("dblclick", this.toggleConsole);
+			element.removeEventListener(
+				"dblclick",
+				this.toggleConsole
+			);
 			element.addEventListener("click", this.connectLine);
 		});
 	}
 
 	Nodes() {
 		const { nodes } = this.props;
-		if (
-			typeof nodes === "undefined" ||
-			nodes === null ||
-			nodes.length === null ||
-			nodes.length === 0
-		) {
+		if (Object.keys(nodes).length === 0) {
+			// typeof nodes === "undefined" ||
+			// nodes === null ||
+			// nodes.length === null ||
+			// nodes.length === 0
 			console.log("no nodes");
 			return null;
 		}
 		console.log("nodes");
 		return (
 			<React.Fragment>
-				{nodes.map(
+				{Object.keys(nodes).map(
 					node => (
-						<Draggable onDrag={this.handleMovement} key={node}>
+						<Draggable
+							onDrag={this.handleMovement}
+							key={node}
+						>
 							<div className="shrink">
 								<FontAwesomeIcon
 									id={node}
 									icon={faDesktop}
 									size="3x"
-									style={{ backgroundColor: "white" }}
+									style={{
+										backgroundColor: "white"
+									}}
 									className="line-node"
 								/>
 							</div>
 						</Draggable>
 					),
-					this.consoleToggleListener(),
+					this.consoleToggleListener()
 				)}
 			</React.Fragment>
 		);
 	}
 
 	Lines() {
-		const { coordinates, connections, nodes } = this.props;
+		const { coordinates, connections } = this.props,
+			nodes = Object.keys(this.props.nodes);
 
 		console.log("lines");
 
@@ -154,14 +170,30 @@ export default class Nodes extends React.Component {
 					lines_values[index].map(dest => (
 						<Line
 							key={dest}
-							x0={coordinates[`${nodes.indexOf(node)}`][0]}
-							y0={coordinates[`${nodes.indexOf(node)}`][1]}
-							x1={coordinates[`${nodes.indexOf(dest)}`][0]}
-							y1={coordinates[`${nodes.indexOf(dest)}`][1]}
+							x0={
+								coordinates[
+									`${nodes.indexOf(node)}`
+								][0]
+							}
+							y0={
+								coordinates[
+									`${nodes.indexOf(node)}`
+								][1]
+							}
+							x1={
+								coordinates[
+									`${nodes.indexOf(dest)}`
+								][0]
+							}
+							y1={
+								coordinates[
+									`${nodes.indexOf(dest)}`
+								][1]
+							}
 							borderWidth={3}
 							zIndex={-1}
 						/>
-					)),
+					))
 				)}
 			</React.Fragment>
 		);

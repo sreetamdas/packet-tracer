@@ -1,14 +1,19 @@
-import React from "react";
 import store from "../store";
 
 // const { nodes, connections } = this.props;
 
 const checkConnectivity = (first, second) => {
 	const { connections } = store.getState();
-	if (typeof connections[first] !== "undefined" && connections[first].indexOf(second) !== -1) {
+	if (
+		typeof connections[first] !== "undefined" &&
+		connections[first].indexOf(second) !== -1
+	) {
 		console.log("1");
 		return true;
-	} else if (typeof connections[second] !== "undefined" && connections[second].indexOf(first) !== -1) {
+	} else if (
+		typeof connections[second] !== "undefined" &&
+		connections[second].indexOf(first) !== -1
+	) {
 		console.log("2");
 		return true;
 	} else {
