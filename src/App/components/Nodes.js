@@ -45,16 +45,18 @@ export default class Nodes extends React.Component {
 
 		const node = e.target.id;
 
+		if (!node) {
+			console.log("empty target");
+			return null;
+		}
+
 		if (!this.state.first_node_in_line) {
 			this.setState({
 				message: "click the next one",
 				first_node_in_line: node
 			});
 		} else {
-			this.props.add_connection(
-				this.state.first_node_in_line,
-				node
-			);
+			this.props.add_connection(this.state.first_node_in_line, node);
 
 			this.setState({
 				message: "done",
@@ -64,10 +66,7 @@ export default class Nodes extends React.Component {
 
 			const nodes = document.getElementsByClassName("line-node");
 			Array.from(nodes).forEach(element => {
-				element.addEventListener(
-					"dblclick",
-					this.toggleConsole
-				);
+				element.addEventListener("dblclick", this.toggleConsole);
 				element.removeEventListener("click", this.connectLine);
 			});
 		}
@@ -98,12 +97,12 @@ export default class Nodes extends React.Component {
 	};
 
 	insertLine() {
+		this.setState({
+			message: "click on the first one"
+		});
 		const nodes = document.getElementsByClassName("line-node");
 		Array.from(nodes).forEach(element => {
-			element.removeEventListener(
-				"dblclick",
-				this.toggleConsole
-			);
+			element.removeEventListener("dblclick", this.toggleConsole);
 			element.addEventListener("click", this.connectLine);
 		});
 	}
@@ -123,10 +122,7 @@ export default class Nodes extends React.Component {
 			<React.Fragment>
 				{Object.keys(nodes).map(
 					node => (
-						<Draggable
-							onDrag={this.handleMovement}
-							key={node}
-						>
+						<Draggable onDrag={this.handleMovement} key={node}>
 							<div className="shrink">
 								<FontAwesomeIcon
 									id={node}
@@ -170,26 +166,10 @@ export default class Nodes extends React.Component {
 					lines_values[index].map(dest => (
 						<Line
 							key={dest}
-							x0={
-								coordinates[
-									`${nodes.indexOf(node)}`
-								][0]
-							}
-							y0={
-								coordinates[
-									`${nodes.indexOf(node)}`
-								][1]
-							}
-							x1={
-								coordinates[
-									`${nodes.indexOf(dest)}`
-								][0]
-							}
-							y1={
-								coordinates[
-									`${nodes.indexOf(dest)}`
-								][1]
-							}
+							x0={coordinates[`${nodes.indexOf(node)}`][0]}
+							y0={coordinates[`${nodes.indexOf(node)}`][1]}
+							x1={coordinates[`${nodes.indexOf(dest)}`][0]}
+							y1={coordinates[`${nodes.indexOf(dest)}`][1]}
 							borderWidth={3}
 							zIndex={-1}
 						/>
