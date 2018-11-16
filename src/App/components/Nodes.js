@@ -19,13 +19,15 @@ export default class Nodes extends React.Component {
 			active: false,
 			show: false,
 			message: null,
-			first_node_in_line: false
+			coordinates: [],
+			first_node_in_line: false,
 		};
 	}
 	componentDidMount() {
 		console.log("connections loaded");
 	}
 	handleMovement = (e, data) => {
+		console.log("called1");
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
 
@@ -37,7 +39,19 @@ export default class Nodes extends React.Component {
 		const y = box.bottom - box.height / 2;
 		const index = Object.keys(this.props.nodes).indexOf(id);
 
-		this.props.update_coordinates(index, x, y);
+		const updated_coordinates = [...this.state.coordinates];
+		updated_coordinates[index] = [x, y];
+
+		this.setState({
+			coordinates: updated_coordinates,
+			moving_node: index,
+		});
+	};
+
+	updateCoordinatesInReduxStore = (e, data, index, x, y) => {
+		console.log({ e }, { data });
+		console.log("called");
+		// this.props.update_coordinates(index, x, y);
 	};
 
 	connectLine(e) {
@@ -53,7 +67,7 @@ export default class Nodes extends React.Component {
 		if (!this.state.first_node_in_line) {
 			this.setState({
 				message: "click the next one",
-				first_node_in_line: node
+				first_node_in_line: node,
 			});
 		} else {
 			this.props.add_connection(this.state.first_node_in_line, node);
@@ -61,7 +75,7 @@ export default class Nodes extends React.Component {
 			this.setState({
 				message: "done",
 				first_node_in_line: false,
-				show: true
+				show: true,
 			});
 
 			const nodes = document.getElementsByClassName("line-node");
@@ -80,7 +94,7 @@ export default class Nodes extends React.Component {
 		console.log("gen: ", node);
 		this.props.add_node(node);
 		this.setState({
-			active: true
+			active: true,
 		});
 	}
 
@@ -98,7 +112,7 @@ export default class Nodes extends React.Component {
 
 	insertLine() {
 		this.setState({
-			message: "click on the first one"
+			message: "click on the first one",
 		});
 		const nodes = document.getElementsByClassName("line-node");
 		Array.from(nodes).forEach(element => {
@@ -122,21 +136,28 @@ export default class Nodes extends React.Component {
 			<React.Fragment>
 				{Object.keys(nodes).map(
 					node => (
-						<Draggable onDrag={this.handleMovement} key={node}>
+						<Draggable
+							onDrag={this.handleMovement}
+							key={node}
+							onMouseDown={this.updateCoordinatesInReduxStore(
+								this.state.moving_node,
+								{ ...this.state.coordinates },
+							)}
+						>
 							<div className="shrink">
 								<FontAwesomeIcon
 									id={node}
 									icon={faDesktop}
 									size="3x"
 									style={{
-										backgroundColor: "white"
+										backgroundColor: "white",
 									}}
 									className="line-node"
 								/>
 							</div>
 						</Draggable>
 					),
-					this.consoleToggleListener()
+					this.consoleToggleListener(),
 				)}
 			</React.Fragment>
 		);
@@ -173,7 +194,7 @@ export default class Nodes extends React.Component {
 							borderWidth={3}
 							zIndex={-1}
 						/>
-					))
+					)),
 				)}
 			</React.Fragment>
 		);
@@ -187,7 +208,9 @@ export default class Nodes extends React.Component {
 				<h1>This is React Lines.</h1>
 				<button onClick={this.generateNode}>New Node</button>
 				<button onClick={this.insertLine}>Draw Line</button>
-				<button onClick={this.consoleToggleListener}>Toggle Console</button>
+				<button onClick={this.consoleToggleListener}>
+					Toggle Console
+				</button>
 				{this.state.message}
 				<br />
 				line follows:
