@@ -178,6 +178,8 @@ export default class Nodes extends React.Component {
 			</React.Fragment>
 		);
 	}
+	// call reducer on mouse down
+	// local state during drag
 
 	render() {
 		return (
