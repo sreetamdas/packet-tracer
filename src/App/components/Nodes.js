@@ -19,6 +19,7 @@ export default class Nodes extends React.Component {
 			active: false,
 			show: false,
 			message: null,
+			coordinates: [],
 			first_node_in_line: false,
 		};
 	}
@@ -26,6 +27,7 @@ export default class Nodes extends React.Component {
 		console.log("connections loaded");
 	}
 	handleMovement = (e, data) => {
+		console.log("called1");
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
 
@@ -35,14 +37,29 @@ export default class Nodes extends React.Component {
 		const box = el.getBoundingClientRect();
 		const x = box.left + box.width / 2;
 		const y = box.bottom - box.height / 2;
+
+		this.setState({
+			coordinates: [x, y],
+		});
+	};
+
+	updateCoordinatesInReduxStore = (e, data) => {
+		const id = data.node.firstChild.id;
+		const el = document.getElementById(id);
+
+		if (!el) {
+			return false;
+		}
 		const index = Object.keys(this.props.nodes).indexOf(id);
 
-		this.props.update_coordinates(index, x, y);
+		this.props.update_coordinates(
+			index,
+			this.state.coordinates[0],
+			this.state.coordinates[1],
+		);
 	};
 
 	connectLine(e) {
-		console.log("target:", e.target.id);
-
 		const node = e.target.id;
 
 		if (!node) {
@@ -122,7 +139,11 @@ export default class Nodes extends React.Component {
 			<React.Fragment>
 				{Object.keys(nodes).map(
 					node => (
-						<Draggable onDrag={this.handleMovement} key={node.toString()}>
+						<Draggable
+							key={node}
+							onStop={this.updateCoordinatesInReduxStore}
+							onDrag={this.handleMovement}
+						>
 							<div className="shrink">
 								<FontAwesomeIcon
 									id={node}
@@ -165,7 +186,7 @@ export default class Nodes extends React.Component {
 				{lines_keys.map((node, index) =>
 					lines_values[index].map(dest => (
 						<Line
-							key={`${dest}-${dest}`}
+							key={dest}
 							x0={coordinates[`${nodes.indexOf(node)}`][0]}
 							y0={coordinates[`${nodes.indexOf(node)}`][1]}
 							x1={coordinates[`${nodes.indexOf(dest)}`][0]}
@@ -183,7 +204,7 @@ export default class Nodes extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
+			<div>
 				<h1>This is React Lines.</h1>
 				<button onClick={this.generateNode}>New Node</button>
 				<button onClick={this.insertLine}>Draw Line</button>
@@ -195,9 +216,9 @@ export default class Nodes extends React.Component {
 				line follows:
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
-				{this.Nodes()}
+				<div>{this.Nodes()}</div>
 				<div id="console" />
-			</React.Fragment>
+			</div>
 		);
 	}
 }
