@@ -20,7 +20,7 @@ export default class Nodes extends React.Component {
 			show: false,
 			message: null,
 			coordinates: [],
-			moving: null,
+			moving: false,
 			first_node_in_line: false
 		};
 	}
@@ -50,20 +50,19 @@ export default class Nodes extends React.Component {
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
 
-		if (!el) {
+		if (!el || this.state.moving === false) {
 			return false;
 		}
 		const index = Object.keys(this.props.nodes).indexOf(id);
-
-		// this.setState({
-		// 	moving: null
-		// });
 
 		this.props.update_coordinates(
 			index,
 			this.state.coordinates[0],
 			this.state.coordinates[1]
 		);
+		this.setState({
+			moving: false
+		});
 	};
 
 	connectLine(e) {

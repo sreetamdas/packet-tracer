@@ -6,7 +6,6 @@ export function add_node(id) {
 }
 
 export function add_connection(first_node, second_node) {
-	console.log({ first_node }, { second_node });
 	return {
 		type: "ADD_CONNECTION",
 		first_node,
@@ -23,7 +22,6 @@ export function add_mac(id, mac) {
 }
 
 export function update_coordinates(id, x, y) {
-	console.log("updating coordinates");
 	return {
 		type: "UPDATE_COORDINATES",
 		id,
