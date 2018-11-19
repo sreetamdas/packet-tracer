@@ -5,6 +5,8 @@ import Draggable from "react-draggable";
 import Line from "react-progress-line";
 import Modal from "react-responsive-modal";
 
+import { Router, Switch } from "../../assets/icons";
+
 export default class Nodes extends React.Component {
 	constructor() {
 		super();
@@ -102,6 +104,7 @@ export default class Nodes extends React.Component {
 
 		console.log("gen: ", node);
 		this.props.add_node(node);
+		this.props.generateMAC(node);
 		this.setState({
 			active: true
 		});
@@ -225,6 +228,8 @@ export default class Nodes extends React.Component {
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
 				<div>{this.Nodes()}</div>
+				<Router />
+				<Switch />
 				<div id="console" />
 			</div>
 		);
