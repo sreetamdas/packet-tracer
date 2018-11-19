@@ -23,6 +23,7 @@ export function add_mac(id, mac) {
 }
 
 export function update_coordinates(id, x, y) {
+	console.log("updating coordinates");
 	return {
 		type: "UPDATE_COORDINATES",
 		id,

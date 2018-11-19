@@ -20,14 +20,15 @@ export default class Nodes extends React.Component {
 			show: false,
 			message: null,
 			coordinates: [],
-			first_node_in_line: false,
+			moving: null,
+			first_node_in_line: false
 		};
 	}
 	componentDidMount() {
 		console.log("connections loaded");
 	}
 	handleMovement = (e, data) => {
-		console.log("called1");
+		// console.log("called1");
 		const id = data.node.firstChild.id;
 		const el = document.getElementById(id);
 
@@ -37,9 +38,11 @@ export default class Nodes extends React.Component {
 		const box = el.getBoundingClientRect();
 		const x = box.left + box.width / 2;
 		const y = box.bottom - box.height / 2;
+		const index = Object.keys(this.props.nodes).indexOf(id);
 
 		this.setState({
 			coordinates: [x, y],
+			moving: index
 		});
 	};
 
@@ -52,10 +55,14 @@ export default class Nodes extends React.Component {
 		}
 		const index = Object.keys(this.props.nodes).indexOf(id);
 
+		// this.setState({
+		// 	moving: null
+		// });
+
 		this.props.update_coordinates(
 			index,
 			this.state.coordinates[0],
-			this.state.coordinates[1],
+			this.state.coordinates[1]
 		);
 	};
 
@@ -70,7 +77,7 @@ export default class Nodes extends React.Component {
 		if (!this.state.first_node_in_line) {
 			this.setState({
 				message: "click the next one",
-				first_node_in_line: node,
+				first_node_in_line: node
 			});
 		} else {
 			this.props.add_connection(this.state.first_node_in_line, node);
@@ -78,7 +85,7 @@ export default class Nodes extends React.Component {
 			this.setState({
 				message: "done",
 				first_node_in_line: false,
-				show: true,
+				show: true
 			});
 
 			const nodes = document.getElementsByClassName("line-node");
@@ -97,7 +104,7 @@ export default class Nodes extends React.Component {
 		console.log("gen: ", node);
 		this.props.add_node(node);
 		this.setState({
-			active: true,
+			active: true
 		});
 	}
 
@@ -115,7 +122,7 @@ export default class Nodes extends React.Component {
 
 	insertLine() {
 		this.setState({
-			message: "click on the first one",
+			message: "click on the first one"
 		});
 		const nodes = document.getElementsByClassName("line-node");
 		Array.from(nodes).forEach(element => {
@@ -150,14 +157,14 @@ export default class Nodes extends React.Component {
 									icon={faDesktop}
 									size="3x"
 									style={{
-										backgroundColor: "white",
+										backgroundColor: "white"
 									}}
 									className="line-node"
 								/>
 							</div>
 						</Draggable>
 					),
-					this.consoleToggleListener(),
+					this.consoleToggleListener()
 				)}
 			</React.Fragment>
 		);
@@ -178,8 +185,12 @@ export default class Nodes extends React.Component {
 			return null;
 		}
 
-		const lines_keys = Object.keys(connections);
-		const lines_values = Object.values(connections);
+		const lines_keys = Object.keys(connections),
+			lines_values = Object.values(connections),
+			updated_coordinates = {
+				...coordinates,
+				[this.state.moving]: [...this.state.coordinates]
+			};
 
 		return (
 			<React.Fragment>
@@ -187,14 +198,14 @@ export default class Nodes extends React.Component {
 					lines_values[index].map(dest => (
 						<Line
 							key={dest}
-							x0={coordinates[`${nodes.indexOf(node)}`][0]}
-							y0={coordinates[`${nodes.indexOf(node)}`][1]}
-							x1={coordinates[`${nodes.indexOf(dest)}`][0]}
-							y1={coordinates[`${nodes.indexOf(dest)}`][1]}
+							x0={updated_coordinates[`${nodes.indexOf(node)}`][0]}
+							y0={updated_coordinates[`${nodes.indexOf(node)}`][1]}
+							x1={updated_coordinates[`${nodes.indexOf(dest)}`][0]}
+							y1={updated_coordinates[`${nodes.indexOf(dest)}`][1]}
 							borderWidth={3}
 							zIndex={-1}
 						/>
-					)),
+					))
 				)}
 			</React.Fragment>
 		);
@@ -208,9 +219,7 @@ export default class Nodes extends React.Component {
 				<h1>This is React Lines.</h1>
 				<button onClick={this.generateNode}>New Node</button>
 				<button onClick={this.insertLine}>Draw Line</button>
-				<button onClick={this.consoleToggleListener}>
-					Toggle Console
-				</button>
+				<button onClick={this.consoleToggleListener}>Toggle Console</button>
 				{this.state.message}
 				<br />
 				line follows:
