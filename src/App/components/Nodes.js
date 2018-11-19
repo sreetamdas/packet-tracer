@@ -228,8 +228,6 @@ export default class Nodes extends React.Component {
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
 				<div>{this.Nodes()}</div>
-				<Router />
-				<Switch />
 				<div id="console" />
 			</div>
 		);
