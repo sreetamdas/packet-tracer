@@ -16,7 +16,7 @@ export default class Nodes extends React.Component {
 		this.generateNode = this.generateNode.bind(this);
 		this.insertLine = this.insertLine.bind(this);
 		this.Nodes = this.Nodes.bind(this);
-		this.Lines = this.Lines.bind(this);
+		// this.Lines = this.Lines.bind(this);
 		this.state = {
 			active: false,
 			show: false,
@@ -46,6 +46,8 @@ export default class Nodes extends React.Component {
 			coordinates: [x, y],
 			moving: index
 		});
+
+		this.props.handleMovingNode(index, x, y);
 	};
 
 	updateCoordinatesInReduxStore = (e, data) => {
@@ -172,46 +174,46 @@ export default class Nodes extends React.Component {
 		);
 	}
 
-	Lines() {
-		const { coordinates, connections } = this.props,
-			nodes = Object.keys(this.props.nodes);
+	// Lines() {
+	// 	const { coordinates, connections } = this.props,
+	// 		nodes = Object.keys(this.props.nodes);
 
-		console.log("lines");
+	// 	console.log("lines");
 
-		if (
-			typeof connections === "undefined" ||
-			connections === null ||
-			connections.length === null ||
-			connections.length === 0
-		) {
-			return null;
-		}
+	// 	if (
+	// 		typeof connections === "undefined" ||
+	// 		connections === null ||
+	// 		connections.length === null ||
+	// 		connections.length === 0
+	// 	) {
+	// 		return null;
+	// 	}
 
-		const lines_keys = Object.keys(connections),
-			lines_values = Object.values(connections),
-			updated_coordinates = {
-				...coordinates,
-				[this.state.moving]: [...this.state.coordinates]
-			};
+	// 	const lines_keys = Object.keys(connections),
+	// 		lines_values = Object.values(connections),
+	// 		updated_coordinates = {
+	// 			...coordinates,
+	// 			[this.state.moving]: [...this.state.coordinates]
+	// 		};
 
-		return (
-			<React.Fragment>
-				{lines_keys.map((node, index) =>
-					lines_values[index].map(dest => (
-						<Line
-							key={dest}
-							x0={updated_coordinates[`${nodes.indexOf(node)}`][0]}
-							y0={updated_coordinates[`${nodes.indexOf(node)}`][1]}
-							x1={updated_coordinates[`${nodes.indexOf(dest)}`][0]}
-							y1={updated_coordinates[`${nodes.indexOf(dest)}`][1]}
-							borderWidth={3}
-							zIndex={-1}
-						/>
-					))
-				)}
-			</React.Fragment>
-		);
-	}
+	// 	return (
+	// 		<React.Fragment>
+	// 			{lines_keys.map((node, index) =>
+	// 				lines_values[index].map(dest => (
+	// 					<Line
+	// 						key={dest}
+	// 						x0={updated_coordinates[`${nodes.indexOf(node)}`][0]}
+	// 						y0={updated_coordinates[`${nodes.indexOf(node)}`][1]}
+	// 						x1={updated_coordinates[`${nodes.indexOf(dest)}`][0]}
+	// 						y1={updated_coordinates[`${nodes.indexOf(dest)}`][1]}
+	// 						borderWidth={3}
+	// 						zIndex={-1}
+	// 					/>
+	// 				))
+	// 			)}
+	// 		</React.Fragment>
+	// 	);
+	// }
 	// call reducer on mouse down
 	// local state during drag
 
@@ -226,7 +228,9 @@ export default class Nodes extends React.Component {
 				<br />
 				line follows:
 				<br />
+				{/*
 				<div>{this.state.show && this.Lines()}</div>
+				*/}
 				<div>{this.Nodes()}</div>
 				<div id="console" />
 			</div>

@@ -12,17 +12,21 @@ export default class Lines extends React.Component {
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-		this.setState({
-			moving: this.props.movingNodeIndex,
-			coordinates: this.props.movingNodeCoordinates
-		});
+		if (
+			prevState.movingNodeIndex !== nextProps.movingNodeIndex ||
+			prevState.movingNodeCoordinates !== nextProps.movingNodeCoordinates
+		) {
+			return {
+				moving: nextProps.movingNodeIndex,
+				coordinates: nextProps.movingNodeCoordinates
+			};
+		}
+		return null;
 	}
 
-	Lines() {
+	render() {
 		const { coordinates, connections } = this.props,
 			nodes = Object.keys(this.props.nodes);
-
-		console.log("lines");
 
 		if (
 			typeof connections === "undefined" ||

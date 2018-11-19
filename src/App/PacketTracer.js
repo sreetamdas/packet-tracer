@@ -13,13 +13,15 @@ export default class PacketTracer extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.handleMovingNode = this.handleMovingNode.bind(this);
+
 		this.state = {
 			coordinates: [],
 			moving: false
 		};
 	}
 
-	hadleMovingNode = (type, index, x, y) => {
+	handleMovingNode = (index, x, y) => {
 		this.setState({
 			moving: index,
 			coordinates: [x, y]
@@ -33,6 +35,7 @@ export default class PacketTracer extends React.Component {
 					{...this.props}
 					checkConnectivity={checkConnectivity}
 					generateMAC={generateMAC}
+					handleMovingNode={this.handleMovingNode}
 				/>
 				<Lines
 					{...this.props}
