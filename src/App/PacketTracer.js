@@ -43,8 +43,6 @@ export default class PacketTracer extends React.Component {
 					movingNodeCoordinates={this.state.coordinates}
 				/>*/}
 				<Console {...this.props} />
-				<Router />
-				<Switch />
 				<div id="console" />
 			</React.Fragment>
 		);

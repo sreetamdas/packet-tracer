@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Space+Mono");
 
-body, button {
+body,
+button {
 	font-family: "Space Mono", monospace !important;
 	padding: 0;
 	margin: 0;
@@ -9,8 +10,6 @@ body, button {
 ::-webkit-scrollbar {
 	display: none;
 }
-
-
 
 /* h1, h2, h3, h4, h5, h6, p, div {
 	margin-bottom: 0;
@@ -74,9 +73,9 @@ a:hover {
 
 .overlay {
 	height: 100%;
-    width: 100%;
-    position: fixed;
-    z-index: 1;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
 }
 
 button {
@@ -95,4 +94,11 @@ button:hover {
 
 .shrink {
 	display: inline-block !important;
+}
+
+.react-draggable img,
+img.react-draggable {
+	user-drag: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
 }

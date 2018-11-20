@@ -1,11 +1,15 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDesktop } from "@fortawesome/free-solid-svg-icons";
+import {
+	faDesktop,
+	faArrowsAlt,
+	faCircle
+} from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
 import Modal from "react-responsive-modal";
 
-import { Router, Switch } from "../../assets/icons";
+import { Router, Switch, NewRouter } from "../../assets/icons";
 
 export default class Nodes extends React.Component {
 	constructor() {
@@ -20,6 +24,7 @@ export default class Nodes extends React.Component {
 		this.handleMovement = this.handleMovement.bind(this);
 
 		this.Nodes = this.Nodes.bind(this);
+		this.Routers = this.Routers.bind(this);
 		this.Lines = this.Lines.bind(this);
 
 		this.state = {
@@ -45,11 +50,12 @@ export default class Nodes extends React.Component {
 		const box = el.getBoundingClientRect();
 		const x = box.left + box.width / 2;
 		const y = box.bottom - box.height / 2;
+		console.log({ id });
 		const index = Object.keys(this.props.nodes).indexOf(id);
-
+		console.log({ id });
 		this.setState({
 			coordinates: [x, y],
-			moving: index
+			moving: id
 		});
 	};
 
@@ -62,7 +68,11 @@ export default class Nodes extends React.Component {
 		}
 		const index = Object.keys(this.props.nodes).indexOf(id);
 
-		this.props.update_coordinates(index, this.state.coordinates[0], this.state.coordinates[1]);
+		this.props.update_coordinates(
+			id,
+			this.state.coordinates[0],
+			this.state.coordinates[1]
+		);
 		this.setState({
 			moving: false
 		});
@@ -173,7 +183,11 @@ export default class Nodes extends React.Component {
 			<React.Fragment>
 				{Object.keys(nodes).map(
 					node => (
-						<Draggable key={node} onStop={this.updateCoordinatesInReduxStore} onDrag={this.handleMovement}>
+						<Draggable
+							key={node}
+							onStop={this.updateCoordinatesInReduxStore}
+							onDrag={this.handleMovement}
+						>
 							<div className="shrink">
 								<FontAwesomeIcon
 									id={node}
@@ -208,6 +222,8 @@ export default class Nodes extends React.Component {
 			return null;
 		}
 
+		console.log(this.state.moving);
+
 		const lines_keys = Object.keys(connections),
 			lines_values = Object.values(connections),
 			updated_coordinates = {
@@ -215,16 +231,20 @@ export default class Nodes extends React.Component {
 				[this.state.moving]: [...this.state.coordinates]
 			};
 
+		console.log(updated_coordinates);
+		console.log(lines_keys);
+		console.log(lines_values);
+
 		return (
 			<React.Fragment>
 				{lines_keys.map((node, index) =>
 					lines_values[index].map(dest => (
 						<Line
-							key={dest}
-							x0={updated_coordinates[`${nodes.indexOf(node)}`][0]}
-							y0={updated_coordinates[`${nodes.indexOf(node)}`][1]}
-							x1={updated_coordinates[`${nodes.indexOf(dest)}`][0]}
-							y1={updated_coordinates[`${nodes.indexOf(dest)}`][1]}
+							key={`${node}-${dest}`}
+							x0={updated_coordinates[`${nodes.node}`][0]}
+							y0={updated_coordinates[`${nodes.node}`][1]}
+							x1={updated_coordinates[`${nodes.dest}`][0]}
+							y1={updated_coordinates[`${nodes.dest}`][1]}
 							borderWidth={3}
 							zIndex={-1}
 						/>
@@ -233,6 +253,47 @@ export default class Nodes extends React.Component {
 			</React.Fragment>
 		);
 	}
+
+	Routers = () => {
+		console.log("here at routers");
+		const { routers } = this.props;
+		if (Object.keys(routers).length === 0) {
+			// typeof routers === "undefined" ||
+			// routers === null ||
+			// routers.length === null ||
+			// routers.length === 0
+			console.log("no routers");
+			return null;
+		}
+		console.log("routers");
+		return (
+			<React.Fragment>
+				{Object.keys(routers).map(
+					router => (
+						<Draggable
+							key={router}
+							onStop={this.updateCoordinatesInReduxStore}
+							onDrag={this.handleMovement}
+						>
+							<div className="shrink fa-stack fa-2x">
+								<FontAwesomeIcon
+									id={router}
+									icon={faCircle}
+									className="fa-stack-2x"
+								/>
+								<FontAwesomeIcon
+									icon={faArrowsAlt}
+									className="fa-stack-1x"
+									inverse
+								/>
+							</div>
+						</Draggable>
+					)
+					// this.consoleToggleListener()
+				)}
+			</React.Fragment>
+		);
+	};
 	// call reducer on mouse down
 	// local state during drag
 
@@ -244,15 +305,16 @@ export default class Nodes extends React.Component {
 				<button onClick={this.generateSwitch}>New Switch</button>
 				<button onClick={this.generateRouter}>New Router</button>
 				<button onClick={this.insertLine}>Draw Line</button>
-				<button onClick={this.consoleToggleListener}>Toggle Console</button>
+				<button onClick={this.consoleToggleListener}>
+					Toggle Console
+				</button>
 				{this.state.message}
 				<br />
 				line follows:
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
 				<div>{this.Nodes()}</div>
-				<Router />
-				<Switch />
+				<div>{this.Routers()}</div>
 				<div id="console" />
 			</div>
 		);

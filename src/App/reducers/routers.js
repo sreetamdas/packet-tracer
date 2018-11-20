@@ -2,7 +2,6 @@ const routers = (state = [], action) => {
 	switch (action.type) {
 		case "ADD_ROUTER":
 			console.log("Adding Router");
-			console.log({ state });
 			const mac = "XX:XX:XX:XX:XX:XX".replace(/X/g, () => {
 				return "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16));
 			});
