@@ -9,15 +9,11 @@ const routers = (state = [], action) => {
 			return {
 				...state,
 				[action.id]: {
-					...[(action.id = null)],
+					...state[action.id],
 					mac: mac
 				}
 			};
-		// case "ADD_MAC":
-		// 	return {
-		// 		...state,
-		// 		[action.id]: action.mac
-		// 	};
+
 		default:
 			return state;
 	}

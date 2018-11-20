@@ -106,7 +106,6 @@ export default class Nodes extends React.Component {
 
 		console.log("gen: ", node);
 		this.props.add_node(node);
-		this.props.generateMAC(node);
 		this.setState({
 			active: true
 		});
@@ -131,7 +130,6 @@ export default class Nodes extends React.Component {
 
 		console.log("router: ", router);
 		this.props.add_router(router);
-		this.props.generateMAC(router);
 		// this.setState({
 		// 	active: true
 		// });
