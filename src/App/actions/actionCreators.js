@@ -4,6 +4,18 @@ export function add_node(id) {
 		id
 	};
 }
+export function add_switch(id) {
+	return {
+		type: "ADD_SWITCH",
+		id
+	};
+}
+export function add_router(id) {
+	return {
+		type: "ADD_ROUTER",
+		id
+	};
+}
 
 export function add_connection(first_node, second_node) {
 	return {

@@ -11,12 +11,17 @@ export default class Nodes extends React.Component {
 	constructor() {
 		super();
 
-		this.handleMovement = this.handleMovement.bind(this);
-		this.connectLine = this.connectLine.bind(this);
 		this.generateNode = this.generateNode.bind(this);
+		this.generateSwitch = this.generateSwitch.bind(this);
+		this.generateRouter = this.generateRouter.bind(this);
+
+		this.connectLine = this.connectLine.bind(this);
 		this.insertLine = this.insertLine.bind(this);
+		this.handleMovement = this.handleMovement.bind(this);
+
 		this.Nodes = this.Nodes.bind(this);
 		this.Lines = this.Lines.bind(this);
+
 		this.state = {
 			active: false,
 			show: false,
@@ -104,6 +109,29 @@ export default class Nodes extends React.Component {
 		this.setState({
 			active: true
 		});
+	}
+	generateSwitch = () => {
+		const switch = Math.random()
+			.toString(36)
+			.substr(2, 6);
+
+		console.log("switch: ", switch);
+		this.props.add_switch(switch);
+		// this.setState({
+		// 	active: true
+		// });
+	}
+	generateRouter = () => {
+		const router = Math.random()
+			.toString(36)
+			.substr(2, 6);
+
+		console.log("router: ", router);
+		this.props.add_router(router);
+		this.props.generateMAC(router);
+		// this.setState({
+		// 	active: true
+		// });
 	}
 
 	consoleToggleListener = () => {
@@ -212,6 +240,8 @@ export default class Nodes extends React.Component {
 			<div>
 				<h1>This is React Lines.</h1>
 				<button onClick={this.generateNode}>New Node</button>
+				<button onClick={this.generateSwitch}>New Switch</button>
+				<button onClick={this.generateRouter}>New Router</button>
 				<button onClick={this.insertLine}>Draw Line</button>
 				<button onClick={this.consoleToggleListener}>Toggle Console</button>
 				{this.state.message}

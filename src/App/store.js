@@ -9,14 +9,11 @@ const defaultState = {
 	console: {
 		open: false,
 		id: null
-	}
+	},
+	routers: []
 };
 
-const store = createStore(
-	rootReducer,
-	defaultState,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = createStore(rootReducer, defaultState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 if (module.hot) {
 	module.hot.accept("./reducers/", () => {

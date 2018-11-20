@@ -1,7 +1,7 @@
 import React from "react";
 
 import Nodes from "./components/Nodes";
-import Lines from "./components/Lines";
+// import Lines from "./components/Lines";
 import Console from "./components/Console";
 
 import checkConnectivity from "./logic/connectivity";

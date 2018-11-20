@@ -8,7 +8,8 @@ function mapStateToProps(state) {
 		nodes: state.nodes,
 		connections: state.connections,
 		coordinates: state.coordinates,
-		console: state.console
+		console: state.console,
+		routers: state.routers
 	};
 }
 
