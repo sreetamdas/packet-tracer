@@ -49,7 +49,7 @@ export default class Lines extends React.Component {
 				{lines_keys.map((node, index) =>
 					lines_values[index].map(dest => (
 						<Line
-							key={dest}
+							key={dest.toString()}
 							x0={updated_coordinates[`${nodes.indexOf(node)}`][0]}
 							y0={updated_coordinates[`${nodes.indexOf(node)}`][1]}
 							x1={updated_coordinates[`${nodes.indexOf(dest)}`][0]}

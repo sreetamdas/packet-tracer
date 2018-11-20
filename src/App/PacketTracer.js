@@ -37,11 +37,11 @@ export default class PacketTracer extends React.Component {
 					generateMAC={generateMAC}
 					handleMovingNode={this.handleMovingNode}
 				/>
-				<Lines
+				{/*<Lines
 					{...this.props}
 					movingNodeIndex={this.state.moving}
 					movingNodeCoordinates={this.state.coordinates}
-				/>
+				/>*/}
 				<Console {...this.props} />
 				<Router />
 				<Switch />
