@@ -99,9 +99,10 @@ export default class Nodes extends React.Component {
 	}
 
 	generateNode() {
-		const node = Math.random()
-			.toString(36)
-			.substr(2, 6);
+		const gen = Math.random()
+				.toString(36)
+				.substr(2, 6),
+			node = `node-${gen}`;
 
 		console.log("gen: ", node);
 		this.props.add_node(node);
@@ -110,21 +111,23 @@ export default class Nodes extends React.Component {
 			active: true
 		});
 	}
-	generateSwitch = () => {
-		const switch = Math.random()
-			.toString(36)
-			.substr(2, 6);
+	generateSwitch() {
+		const gen = Math.random()
+				.toString(36)
+				.substr(2, 6),
+			not_switch = `switch-${gen}`;
 
-		console.log("switch: ", switch);
-		this.props.add_switch(switch);
+		console.log("switch: ", not_switch);
+		this.props.add_switch(not_switch);
 		// this.setState({
 		// 	active: true
 		// });
 	}
 	generateRouter = () => {
-		const router = Math.random()
-			.toString(36)
-			.substr(2, 6);
+		const gen = Math.random()
+				.toString(36)
+				.substr(2, 6),
+			router = `router-${gen}`;
 
 		console.log("router: ", router);
 		this.props.add_router(router);
@@ -132,7 +135,7 @@ export default class Nodes extends React.Component {
 		// this.setState({
 		// 	active: true
 		// });
-	}
+	};
 
 	consoleToggleListener = () => {
 		const nodes = document.getElementsByClassName("line-node");
