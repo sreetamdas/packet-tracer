@@ -226,10 +226,17 @@ export default class Nodes extends React.Component {
 
 		const lines_keys = Object.keys(connections),
 			lines_values = Object.values(connections),
-			updated_coordinates = {
-				...coordinates,
-				[this.state.moving]: [...this.state.coordinates]
-			};
+			updated_coordinates = this.state.moving
+				? {
+						...coordinates,
+						[this.state.moving.split("-")[0]]: {
+							...coordinates[this.state.moving.split("-")[0]],
+							[this.state.moving.split("-")[1]]: [
+								...this.state.coordinates
+							]
+						}
+				  }
+				: { ...coordinates };
 
 		console.log(updated_coordinates);
 		console.log(lines_keys);
@@ -241,10 +248,26 @@ export default class Nodes extends React.Component {
 					lines_values[index].map(dest => (
 						<Line
 							key={`${node}-${dest}`}
-							x0={updated_coordinates[`${nodes.node}`][0]}
-							y0={updated_coordinates[`${nodes.node}`][1]}
-							x1={updated_coordinates[`${nodes.dest}`][0]}
-							y1={updated_coordinates[`${nodes.dest}`][1]}
+							x0={
+								updated_coordinates[node.split("-")[0]][
+									node.split("-")[1]
+								][0]
+							}
+							y0={
+								updated_coordinates[node.split("-")[0]][
+									node.split("-")[1]
+								][1]
+							}
+							x1={
+								updated_coordinates[dest.split("-")[0]][
+									dest.split("-")[1]
+								][0]
+							}
+							y1={
+								updated_coordinates[dest.split("-")[0]][
+									dest.split("-")[1]
+								][1]
+							}
 							borderWidth={3}
 							zIndex={-1}
 						/>
