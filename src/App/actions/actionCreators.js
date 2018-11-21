@@ -33,10 +33,10 @@ export function add_mac(id, mac) {
 	};
 }
 
-export function update_coordinates(id, x, y) {
+export function update_coordinates(index, x, y) {
 	return {
 		type: "UPDATE_COORDINATES",
-		id,
+		index,
 		x,
 		y
 	};
