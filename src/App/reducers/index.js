@@ -6,13 +6,15 @@ import console from "./console";
 import connections from "./connections";
 import coordinates from "./coordinates";
 import routers from "./routers";
+import switches from "./switches";
 
 const rootReducer = combineReducers({
 	nodes,
 	console,
 	connections,
 	coordinates,
-	routers
+	routers,
+	switches
 });
 
 export default rootReducer;

@@ -9,7 +9,8 @@ function mapStateToProps(state) {
 		connections: state.connections,
 		coordinates: state.coordinates,
 		console: state.console,
-		routers: state.routers
+		routers: state.routers,
+		switches: state.switches
 	};
 }
 

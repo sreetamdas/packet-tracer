@@ -1,6 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+	faArrowUp,
+	faExchangeAlt,
+	faCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 const NewRouter = () => {
 	return (
@@ -23,12 +27,21 @@ const Router = () => {
 	);
 };
 
-const Switch = () => {
+const Switch = props => {
 	return (
-		<img
-			alt="Switch"
-			src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANlSURBVGhD1dpJyI1RHMfxax4yZS6lsBEWFkqZorBAUlJsDCULLCzYszWVjWllKitlyJR5CFGSMWMUipBZZt/f7X3ejvP+733Oebj3fZ5/fTbPc+557/++5znn/M+9JSd6YQ3u4yt+59BPPMNODEGTGIEXsF6cV98wD43RGy9hNc67HxiPcqyG1agoLqAcd2E1KIpf6IPcPtgxRsK8UTRjYN5oDnOhWeiDcy1UrhLpD8Vg3IHVppJcJqLohrOw2lmaNREtaE9xBQfQE250xCFYr/XVNZHv0DOgXURftEBaKJmTsPpzZU5Eb+qhdy2NPt0s0RXXYPWZyJSIhoNe2AqvGq6F2I6ssQFWn4noRE5Bu+QknsBqZ7mNloiNGdCeyuozEZXIXrSDGzGJyDFswiosxWxMwDC0hh8TEbLzCE5kNzSU/JiJ5ViPXTiNe/gMq59q3OlXMR1fYLX1BSWiqbEtYkIz0nFY/VXiJrIQmlCsdpbURFQtagrMEho6Vp+VDEJ7bHWuhUpNRGWl+3DHxDJYfVZyHte9a6GChtYlaC6PCQ2to7D6q4Xgh13Tbif4oeGjB12HAYdxFVpn6l3jBCci+s90hxux02+tRCUit6BtdhKFTUTeYxY0m71tuPY/LMIShK4drkyJJLL8wWqSdWQ4HsFqU8k/JfK/uQtiD6hOsdpZmj2Rd1BZewb+etUZum69zlfXRLSDXYxx0CreAWmh51CzpdWfK3MiOkx+7l1LowUyS2iY3YTVZyJTIjonngxtJGMKq23IGmth9ZmITuQi+iGJmHXkBkLqdD+mIG2nEJXIEfg74dgFcR/WYQXmYxp03DkAVvWoN/gJVl+u4ET2w6pJdDq4EpuhN3kZenZ0sGz1U41fWE3CR1htfUGJnEBsYdUGMQds4iYyBzEbz9REHiB2C59EbGGl4aUPQLtp6341qYk8Rr0S0cGEhqZ1L03Q0DqHLOWuan2rv1oIftgPQvW0Hwugo52N2AM9F9pyvIHVT60EJyKqErvAjcLWIypl9VAmUejC6jWmQqeO9R5ClWRKRLTg5SUJKSeinax1s0hGo3wIZ90skoEo7XAuFJHq+3IMRZF/NKBddGPou720L1PyaAuaxFjoBypZtuD1pu8v//pPWKEfqIyCvi3Km+TgwotS6Q8fm+0FGnDy0gAAAABJRU5ErkJggg=="
-		/>
+		<div className="shrink fa-stack fa-2x" id={props.id}>
+			<FontAwesomeIcon
+				id={props.id}
+				icon={faCircle}
+				className="fa-stack-2x line-element"
+			/>
+			<FontAwesomeIcon
+				id={props.id}
+				icon={faExchangeAlt}
+				className="fa-stack-1x line-element"
+				inverse
+			/>
+		</div>
 	);
 };
 export { Router, Switch, NewRouter };

@@ -1,6 +1,6 @@
 import React from "react";
 import Terminal from "terminal-in-react";
-import Modal from "react-responsive-modal";
+import { Modal, Button } from "react-bootstrap";
 
 export default class Console extends React.Component {
 	constructor(props) {
@@ -36,13 +36,22 @@ export default class Console extends React.Component {
 		return (
 			<React.Fragment>
 				<Modal
-					open={this.props.console.open}
-					onExited={this.closingModal}
-					onClose={this.onCloseModal}
-					animationDuration={0}
+					show={this.props.console.open}
+					onHide={this.onCloseModal}
+					dialogClassName="custom-modal"
 				>
-					<h2>{this.props.console.id}</h2>
-					<Terminal />
+					<Modal.Header closeButton>
+						<Modal.Title id="contained-modal-title-lg">
+							Modal heading
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<h4>{this.props.console.id}</h4>
+						<Terminal />
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={this.handleHide}>Close</Button>
+					</Modal.Footer>
 				</Modal>
 			</React.Fragment>
 		);

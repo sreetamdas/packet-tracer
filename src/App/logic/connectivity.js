@@ -21,6 +21,4 @@ const checkConnectivity = (first, second) => {
 	}
 };
 
-// store.subscribe(checkConnectivity);
-
 export default checkConnectivity;

@@ -1,3 +1,5 @@
+export * from "./ip";
+
 export function add_node(id) {
 	return {
 		type: "ADD_NODE",
