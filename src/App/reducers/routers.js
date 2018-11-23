@@ -11,10 +11,24 @@ const routers = (state = [], action) => {
 				...state,
 				[action.id]: {
 					...state[action.id],
-					mac: mac
+					mac: mac,
+					interface: {}
 				}
 			};
+		case "ADD_INTERFACE":
+			console.log("Adding Interface");
+			const interfaces = Object.keys(state[action.id].interface);
 
+			return {
+				...state,
+				[action.id]: {
+					...state[action.id],
+					interface: {
+						...state[action.id].interface,
+						[`interface-${interfaces + 1}`]: null
+					}
+				}
+			};
 		default:
 			return state;
 	}

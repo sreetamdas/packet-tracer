@@ -1,4 +1,5 @@
 export * from "./ip";
+export * from "./router";
 
 export function add_node(id) {
 	return {
