@@ -309,46 +309,6 @@ export default class Nodes extends React.Component {
 		);
 	}
 
-	// Routers = () => {
-	// 	console.log("here at routers");
-	// 	const { routers } = this.props;
-	// 	if (Object.keys(routers).length === 0) {
-	// 		// typeof routers === "undefined" ||
-	// 		// routers === null ||
-	// 		// routers.length === null ||
-	// 		// routers.length === 0
-	// 		console.log("no routers");
-	// 		return null;
-	// 	}
-	// 	console.log("routers");
-	// 	return (
-	// 		<React.Fragment>
-	// 			{Object.keys(routers).map(
-	// 				router => (
-	// 					<Draggable
-	// 						key={router}
-	// 						onStop={this.updateCoordinatesInReduxStore}
-	// 						onDrag={this.handleMovement}
-	// 					>
-	// 						<div className="shrink fa-stack fa-2x line-element">
-	// 							<FontAwesomeIcon id={router} icon={faCircle} className="fa-stack-2x" />
-	// 							<FontAwesomeIcon
-	// 								id={router}
-	// 								icon={faArrowsAlt}
-	// 								className="fa-stack-1x"
-	// 								inverse
-	// 							/>
-	// 						</div>
-	// 					</Draggable>
-	// 				)
-	// 				// this.consoleToggleListener()
-	// 			)}
-	// 		</React.Fragment>
-	// 	);
-	// };
-	// call reducer on mouse down
-	// local state during drag
-
 	render() {
 		return (
 			<div>
@@ -366,7 +326,6 @@ export default class Nodes extends React.Component {
 				<br />
 				<div>{this.state.show && this.Lines()}</div>
 				<div>{this.Nodes()}</div>
-				<div id="console" />
 			</div>
 		);
 	}
