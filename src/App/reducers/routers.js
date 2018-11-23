@@ -17,7 +17,7 @@ const routers = (state = [], action) => {
 			};
 		case "ADD_INTERFACE":
 			console.log("Adding Interface");
-			const interfaces = Object.keys(state[action.id].interface);
+			const interfaces = Object.keys(state[action.id].interface).length;
 
 			return {
 				...state,
@@ -26,6 +26,20 @@ const routers = (state = [], action) => {
 					interface: {
 						...state[action.id].interface,
 						[`interface-${interfaces + 1}`]: null
+					}
+				}
+			};
+		case "ADD_INTERFACE_IP_AND_SUBNET":
+			return {
+				...state,
+				[action.id]: {
+					...state[action.id],
+					interface: {
+						...state[action.id].interface,
+						[action.inter_face]: {
+							ip: action.ip,
+							subnet: action.subnet
+						}
 					}
 				}
 			};
