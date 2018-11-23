@@ -12,10 +12,11 @@ export function add_switch(id) {
 		id
 	};
 }
-export function add_router(id) {
+export function add_router(id, mac = null) {
 	return {
 		type: "ADD_ROUTER",
-		id
+		id,
+		mac
 	};
 }
 

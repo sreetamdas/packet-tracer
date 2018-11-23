@@ -1,12 +1,14 @@
 import checkDHCPPool from "../logic/ip";
+import thunk from "redux-thunk";
 
 export function generate_ip_and_subnet(
 	id,
 	ip_class = "C",
 	subnet = `255.255.255.0`
 ) {
-	const connected = checkDHCPPool(id);
-	console.log({ connected });
+	return dispatch => {
+		return checkDHCPPool(id);
+	};
 }
 
 export function assign_ip_and_subnet(id, ip, subnet) {

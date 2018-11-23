@@ -39,6 +39,8 @@ export default class Console extends React.Component {
 	};
 
 	render() {
+		const { commands } = this.props;
+
 		return (
 			<React.Fragment>
 				<Modal
@@ -62,6 +64,7 @@ export default class Console extends React.Component {
 					<h2>{this.props.console.id}</h2>
 					<Terminal
 						color="limegreen"
+						prompt="limegreen"
 						startState="maximised"
 						allowTabs={false}
 						showActions={false}
