@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faDesktop,
 	faArrowsAlt,
-	faExchangeAlt,
 	faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
-import Modal from "react-responsive-modal";
 
-import { Router, Switch, NewRouter } from "../../assets/icons";
+import { Switch } from "../../assets/icons";
 
 export default class Nodes extends React.Component {
 	constructor() {

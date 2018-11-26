@@ -7,7 +7,7 @@ export function generate_ip_and_subnet(
 	subnet = `255.255.255.0`
 ) {
 	return dispatch => {
-		// const connected_routers = checkDHCPPool(id);
+		return checkDHCPPool(id);
 	};
 }
 
