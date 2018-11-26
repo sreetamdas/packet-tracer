@@ -1,43 +1,43 @@
-import React from "react";
-import Terminal from "terminal-in-react";
-import Modal from "react-modal";
+import React from "react"
+import Terminal from "terminal-in-react"
+import Modal from "react-modal"
 import commands from "../logic/commands"
 
-Modal.setAppElement("#console");
+Modal.setAppElement("#console")
 
 export default class Console extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 
 		this.state = {
-			open: true
-		};
+			open: true,
+		}
 
 		// const { consoleState } = this.props;
-		this.onCloseModal = this.onCloseModal.bind(this);
+		this.onCloseModal = this.onCloseModal.bind(this)
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-		console.log("derived");
+		console.log("derived")
 		if (nextProps.console.open !== prevState.open) {
 			return {
-				open: nextProps.console.open
-			};
+				open: nextProps.console.open,
+			}
 		}
 
-		return null;
+		return null
 	}
 
 	componentWillUnmount() {
-		console.log("unmounted");
+		console.log("unmounted")
 	}
 
 	onCloseModal = () => {
-		console.log("unmounting");
+		console.log("unmounting")
 
-		this.props.set_console_state(false);
-		console.log("redx");
-	};
+		this.props.set_console_state(false)
+		console.log("redx")
+	}
 
 	render() {
 		// const { commands } = this.props;
@@ -62,20 +62,21 @@ export default class Console extends React.Component {
 						}
 					}}
 				> */}
-					<h2>{this.props.console.id}</h2>
-					<Terminal
-						commandPassThrough={cmd => `-PassedThrough:${cmd}: command not found~~asd	`}
-						commands={commands}
-
-						color="limegreen"
-						prompt="limegreen"
-						startState="maximised"
-						allowTabs={false}
-						showActions={false}
-						msg="hello world"
-					/>
+				<h2>{this.props.console.id}</h2>
+				<Terminal
+					commandPassThrough={cmd =>
+						`-PassedThrough:${cmd}: command not found~~asd	`
+					}
+					commands={commands}
+					color="limegreen"
+					prompt="limegreen"
+					startState="maximised"
+					allowTabs={false}
+					showActions={false}
+					msg="hello world"
+				/>
 				{/* </Modal> */}
 			</React.Fragment>
-		);
+		)
 	}
 }

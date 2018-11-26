@@ -1,10 +1,10 @@
 const commands = {
-	"ipconfig": () => {
-		console.log("ip config ~");
+	ipconfig: () => {
+		console.log("ip config ~")
 	},
-	"merci": () => {
-		console.log("Danke");
-	}
+	merci: () => {
+		console.log("Danke")
+	},
 }
 
-export default commands;
+export default commands
