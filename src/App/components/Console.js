@@ -12,11 +12,6 @@ export default class Console extends React.Component {
 		this.onCloseModal = this.onCloseModal.bind(this);
 
 		this.state = { open: true };
-
-		this.commands = {
-			ping: args => this.props.ping(args[1], args[2]),
-			exit: () => this.props.commands
-		};
 		// const { consoleState } = this.props;
 	}
 

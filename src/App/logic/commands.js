@@ -1,18 +1,29 @@
 import { ping } from "../actions/command";
 
-// const commands = {
-// 	ipconfig: () => {
-// 		console.log("ip config ~");
-// 	},
-// 	merci: () => {
-// 		console.log("Danke");
-// 	},
-// 	ping: args => ping(args[1], args[2]),
-// };
+const commands = (params = []) => {
+	const args = [],
+		flags = [];
 
-function commands(cmd, args = []) {
-	console.log("~~~~~~~", cmd);
-	console.log("--------", args);
-}
+	const cmd = params.shift();
+
+	params.forEach((arg, index) => {
+		if (arg[0] === "-") {
+			if (arg[1] === "-") {
+				flags.push(arg.slice(2));
+			} else {
+				flags.push(arg.slice(1));
+			}
+		} else {
+			args.push(arg);
+		}
+	});
+
+	switch (cmd) {
+		case "ping":
+			ping(args[0], args[1]);
+		default:
+			return false;
+	}
+};
 
 export default commands;
