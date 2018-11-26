@@ -6,7 +6,8 @@ class Main extends React.Component {
 	render() {
 		return (
 			<div>
-				<PacketTracer {...this.props} />
+				{/* <PacketTracer {...this.props} /> */}
+				<Console {...this.props} />
 			</div>
 		);
 	}

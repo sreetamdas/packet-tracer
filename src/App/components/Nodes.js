@@ -228,7 +228,7 @@ export default class Nodes extends React.Component {
 									<FontAwesomeIcon
 										id={node}
 										icon={faArrowsAlt}
-										className="fa-stack-1x line-element"
+										className="fa-stack-1x "
 										inverse
 									/>
 								</div>
