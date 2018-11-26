@@ -10,6 +10,7 @@ export function active_interface(id, inter_face) {
 
 export function ping(src, dest) {
 	console.log("~~~", src, dest);
+	console.log(this);
 	return (dispatch, getState) => {
 		console.log("h3r3");
 		const connected = checkConnectivity(src, dest);

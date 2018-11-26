@@ -1,9 +1,10 @@
 import store from "../store";
 
-// const { nodes, connections } = this.props;
+// const { nodes } = this.props;
 
 const checkConnectivity = (first, second) => {
 	console.log("checking", first, second);
+	console.log(store.getState());
 	const { connections } = store.getState();
 	if (
 		typeof connections[first] !== "undefined" &&
