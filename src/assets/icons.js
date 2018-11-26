@@ -29,16 +29,16 @@ const Router = () => {
 
 const Switch = props => {
 	return (
-		<div className="shrink fa-stack fa-2x" id={props.id}>
+		<div className="shrink fa-stack fa-2x line-element" id={props.id}>
 			<FontAwesomeIcon
 				id={props.id}
 				icon={faCircle}
-				className="fa-stack-2x line-element"
+				className="fa-stack-2x"
 			/>
 			<FontAwesomeIcon
 				id={props.id}
 				icon={faExchangeAlt}
-				className="fa-stack-1x line-element"
+				className="fa-stack-1x"
 				inverse
 			/>
 		</div>

@@ -7,7 +7,7 @@ import Console from "./components/Console";
 import checkConnectivity from "./logic/connectivity";
 import generateMAC from "./logic/mac";
 
-import { Router, Switch } from "../assets/icons";
+// import { Router, Switch } from "../assets/icons";
 
 export default class PacketTracer extends React.Component {
 	constructor(props) {

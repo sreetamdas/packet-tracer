@@ -1,5 +1,5 @@
 import checkDHCPPool from "../logic/ip";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
 
 export function generate_ip_and_subnet(
 	id,
@@ -7,7 +7,7 @@ export function generate_ip_and_subnet(
 	subnet = `255.255.255.0`
 ) {
 	return dispatch => {
-		const connected_routers = checkDHCPPool(id);
+		// const connected_routers = checkDHCPPool(id);
 	};
 }
 

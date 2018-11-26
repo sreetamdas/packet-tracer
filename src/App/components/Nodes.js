@@ -4,7 +4,7 @@ import {
 	faDesktop,
 	faArrowsAlt,
 	faExchangeAlt,
-	faCircle
+	faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import Draggable from "react-draggable";
 import Line from "react-progress-line";
@@ -34,7 +34,7 @@ export default class Nodes extends React.Component {
 			message: null,
 			coordinates: [],
 			moving: false,
-			first_node_in_line: false
+			first_node_in_line: false,
 		};
 	}
 
@@ -54,7 +54,7 @@ export default class Nodes extends React.Component {
 		const index = Object.keys(this.props.nodes).indexOf(id);
 		this.setState({
 			coordinates: [x, y],
-			moving: index
+			moving: index,
 		});
 	};
 
@@ -70,10 +70,10 @@ export default class Nodes extends React.Component {
 		this.props.update_coordinates(
 			index,
 			this.state.coordinates[0],
-			this.state.coordinates[1]
+			this.state.coordinates[1],
 		);
 		this.setState({
-			moving: false
+			moving: false,
 		});
 	};
 
@@ -91,7 +91,7 @@ export default class Nodes extends React.Component {
 		if (!this.state.first_node_in_line) {
 			this.setState({
 				message: "click the next one",
-				first_node_in_line: node
+				first_node_in_line: node,
 			});
 		} else {
 			this.props.add_connection(this.state.first_node_in_line, node);
@@ -99,7 +99,7 @@ export default class Nodes extends React.Component {
 			this.setState({
 				message: "done",
 				first_node_in_line: false,
-				show: true
+				show: true,
 			});
 
 			const nodes = document.getElementsByClassName("line-element");
@@ -119,7 +119,7 @@ export default class Nodes extends React.Component {
 		console.log("gen: ", node);
 		this.props.add_node(node);
 		this.setState({
-			active: true
+			active: true,
 		});
 	}
 	generateSwitch() {
@@ -168,7 +168,7 @@ export default class Nodes extends React.Component {
 
 	insertLine() {
 		this.setState({
-			message: "click on the first one"
+			message: "click on the first one",
 		});
 		const nodes = document.getElementsByClassName("line-element");
 		Array.from(nodes).forEach(element => {
@@ -204,7 +204,7 @@ export default class Nodes extends React.Component {
 										icon={faDesktop}
 										size="3x"
 										style={{
-											backgroundColor: "white"
+											backgroundColor: "white",
 										}}
 										className="line-element"
 									/>
@@ -244,7 +244,7 @@ export default class Nodes extends React.Component {
 								</div>
 							</Draggable>
 						) : null,
-					this.consoleToggleListener()
+					this.consoleToggleListener(),
 				)}
 			</React.Fragment>
 		);
@@ -271,7 +271,7 @@ export default class Nodes extends React.Component {
 			lines_values = Object.values(connections),
 			updated_coordinates = {
 				...coordinates,
-				[this.state.moving]: [...this.state.coordinates]
+				[this.state.moving]: [...this.state.coordinates],
 			};
 
 		return (
@@ -281,29 +281,21 @@ export default class Nodes extends React.Component {
 						<Line
 							key={`${node}-${dest}`}
 							x0={
-								updated_coordinates[
-									`${nodes.indexOf(node)}`
-								][0]
+								updated_coordinates[`${nodes.indexOf(node)}`][0]
 							}
 							y0={
-								updated_coordinates[
-									`${nodes.indexOf(node)}`
-								][1]
+								updated_coordinates[`${nodes.indexOf(node)}`][1]
 							}
 							x1={
-								updated_coordinates[
-									`${nodes.indexOf(dest)}`
-								][0]
+								updated_coordinates[`${nodes.indexOf(dest)}`][0]
 							}
 							y1={
-								updated_coordinates[
-									`${nodes.indexOf(dest)}`
-								][1]
+								updated_coordinates[`${nodes.indexOf(dest)}`][1]
 							}
 							borderWidth={3}
 							zIndex={-1}
 						/>
-					))
+					)),
 				)}
 			</React.Fragment>
 		);
