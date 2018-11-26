@@ -1,15 +1,17 @@
 import checkConnectivity from "../logic/connectivity";
 
-active_interface = (id, interface) => {
+export function active_interface(id, inter_face) {
 	return {
 		type: "ACTIVE INTERFACE",
 		id,
-		interface,
+		inter_face,
 	};
-};
+}
 
-ping = (src, dest) => {
+export function ping(src, dest) {
+	console.log("~~~", src, dest);
 	return (dispatch, getState) => {
+		console.log("h3r3");
 		const connected = checkConnectivity(src, dest);
 
 		if (connected) {
@@ -20,6 +22,4 @@ ping = (src, dest) => {
 			});
 		}
 	};
-};
-
-export default { active_interface, ping };
+}

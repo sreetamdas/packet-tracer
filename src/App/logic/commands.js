@@ -1,10 +1,13 @@
+import { ping } from "../actions/command";
+
 const commands = {
 	ipconfig: () => {
-		console.log("ip config ~")
+		console.log("ip config ~");
 	},
 	merci: () => {
-		console.log("Danke")
+		console.log("Danke");
 	},
-}
+	ping: args => ping(args[1], args[2]),
+};
 
-export default commands
+export default commands;

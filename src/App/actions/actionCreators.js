@@ -1,25 +1,25 @@
-export * from "./ip"
-export * from "./router"
-export * from "./command"
+export * from "./ip";
+export * from "./router";
+export * from "./command";
 
 export function add_node(id) {
 	return {
 		type: "ADD_NODE",
 		id,
-	}
+	};
 }
 export function add_switch(id) {
 	return {
 		type: "ADD_SWITCH",
 		id,
-	}
+	};
 }
 export function add_router(id, mac = null) {
 	return {
 		type: "ADD_ROUTER",
 		id,
 		mac,
-	}
+	};
 }
 
 export function add_connection(first_node, second_node) {
@@ -27,7 +27,7 @@ export function add_connection(first_node, second_node) {
 		type: "ADD_CONNECTION",
 		first_node,
 		second_node,
-	}
+	};
 }
 
 export function add_mac(id, mac) {
@@ -35,7 +35,7 @@ export function add_mac(id, mac) {
 		type: "ADD_MAC",
 		id,
 		mac,
-	}
+	};
 }
 
 export function update_coordinates(index, x, y) {
@@ -44,7 +44,7 @@ export function update_coordinates(index, x, y) {
 		index,
 		x,
 		y,
-	}
+	};
 }
 
 export function set_console_state(open, id = "none") {
@@ -52,5 +52,5 @@ export function set_console_state(open, id = "none") {
 		type: "SET_CONSOLE_STATE",
 		open,
 		id,
-	}
+	};
 }
