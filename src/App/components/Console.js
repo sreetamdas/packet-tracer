@@ -1,6 +1,7 @@
 import React from "react";
 import Terminal from "terminal-in-react";
 import Modal from "react-modal";
+import commands from "../logic/commands"
 
 Modal.setAppElement("#console");
 
@@ -9,7 +10,7 @@ export default class Console extends React.Component {
 		super(props);
 
 		this.state = {
-			open: false
+			open: true
 		};
 
 		// const { consoleState } = this.props;
@@ -39,11 +40,11 @@ export default class Console extends React.Component {
 	};
 
 	render() {
-		const { commands } = this.props;
+		// const { commands } = this.props;
 
 		return (
 			<React.Fragment>
-				<Modal
+				{/* <Modal
 					isOpen={this.state.open}
 					onRequestClose={this.onCloseModal}
 					contentLabel="Example Modal"
@@ -60,9 +61,12 @@ export default class Console extends React.Component {
 							transform: "translate(-50%, -50%)"
 						}
 					}}
-				>
+				> */}
 					<h2>{this.props.console.id}</h2>
 					<Terminal
+						commandPassThrough={cmd => `-PassedThrough:${cmd}: command not found~~asd	`}
+						commands={commands}
+
 						color="limegreen"
 						prompt="limegreen"
 						startState="maximised"
@@ -70,7 +74,7 @@ export default class Console extends React.Component {
 						showActions={false}
 						msg="hello world"
 					/>
-				</Modal>
+				{/* </Modal> */}
 			</React.Fragment>
 		);
 	}
