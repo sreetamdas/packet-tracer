@@ -8,10 +8,11 @@ const defaultState = {
 	coordinates: [],
 	console: {
 		open: false,
-		id: null
+		id: null,
 	},
 	routers: [],
-	switches: []
+	switches: [],
+	// active: "this_node",
 };
 
 const store = createStore(
@@ -20,8 +21,8 @@ const store = createStore(
 	compose(
 		applyMiddleware(thunk),
 		window.__REDUX_DEVTOOLS_EXTENSION__ &&
-			window.__REDUX_DEVTOOLS_EXTENSION__()
-	)
+			window.__REDUX_DEVTOOLS_EXTENSION__(),
+	),
 );
 
 if (module.hot) {

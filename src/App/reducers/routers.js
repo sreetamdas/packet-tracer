@@ -4,7 +4,7 @@ const routers = (state = [], action) => {
 			console.log("Adding Router");
 			const mac = "XX:XX:XX:XX:XX:XX".replace(/X/g, () => {
 				return "0123456789ABCDEF".charAt(
-					Math.floor(Math.random() * 16)
+					Math.floor(Math.random() * 16),
 				);
 			});
 			return {
@@ -12,8 +12,11 @@ const routers = (state = [], action) => {
 				[action.id]: {
 					...state[action.id],
 					mac: mac,
-					interface: {}
-				}
+					interface: {
+						"f0/0": {},
+						"f0/1": {},
+					},
+				},
 			};
 		case "ADD_INTERFACE":
 			console.log("Adding Interface");
@@ -25,11 +28,12 @@ const routers = (state = [], action) => {
 					...state[action.id],
 					interface: {
 						...state[action.id].interface,
-						[`interface-${interfaces + 1}`]: null
-					}
-				}
+						[`interface-${interfaces + 1}`]: null,
+					},
+				},
 			};
 		case "ADD_INTERFACE_IP_AND_SUBNET":
+			console.log("interfarse");
 			return {
 				...state,
 				[action.id]: {
@@ -38,10 +42,10 @@ const routers = (state = [], action) => {
 						...state[action.id].interface,
 						[action.inter_face]: {
 							ip: action.ip,
-							subnet: action.subnet
-						}
-					}
-				}
+							subnet: action.subnet,
+						},
+					},
+				},
 			};
 		default:
 			return state;

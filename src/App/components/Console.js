@@ -13,6 +13,10 @@ export default class Console extends React.Component {
 
 		this.state = { open: true };
 		// const { consoleState } = this.props;
+
+		this.commands = {
+			ping: args => this.props.ping(...args),
+		};
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -42,13 +46,13 @@ export default class Console extends React.Component {
 
 		return (
 			<React.Fragment>
-				{/* <Modal
+				<Modal
 					isOpen={this.state.open}
 					onRequestClose={this.onCloseModal}
 					contentLabel="Example Modal"
 					style={{
 						overlay: {
-							backgroundColor: "rgba(255, 255, 255, 0.3)"
+							backgroundColor: "rgba(255, 255, 255, 0.3)",
 						},
 						content: {
 							position: "fixed",
@@ -56,22 +60,22 @@ export default class Console extends React.Component {
 							left: "50%",
 							width: "75%",
 							height: "75%",
-							transform: "translate(-50%, -50%)"
-						}
+							transform: "translate(-50%, -50%)",
+						},
 					}}
-				> */}
-				<h2>{this.props.console.id}</h2>
-				<Terminal
-					commandPassThrough={cmd =>	this.props.commands(cmd)}
-					// commands={this.commands}
-					color="limegreen"
-					prompt="limegreen"
-					startState="maximised"
-					allowTabs={false}
-					showActions={false}
-					msg="hello world"
-				/>
-				{/* </Modal> */}
+				>
+					<h2>{this.props.console.id}</h2>
+					<Terminal
+						// commandPassThrough={cmd => this.props.command(cmd)}
+						commands={this.commands}
+						color="yellow"
+						prompt="yellow"
+						startState="maximised"
+						allowTabs={false}
+						showActions={false}
+						msg="hello world"
+					/>
+				</Modal>
 			</React.Fragment>
 		);
 	}

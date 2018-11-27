@@ -12,6 +12,7 @@ export function generate_ip_and_subnet(
 }
 
 export function assign_ip_and_subnet(id, ip, subnet) {
+	console.log("assssss")
 	return {
 		type: "ASSIGN_IP_AND_SUBNET",
 		id,

@@ -10,7 +10,8 @@ function mapStateToProps(state) {
 		coordinates: state.coordinates,
 		console: state.console,
 		routers: state.routers,
-		switches: state.switches
+		switches: state.switches,
+		active: state.active,
 	};
 }
 
@@ -20,7 +21,7 @@ function mapDispachToProps(dispatch) {
 
 const App = connect(
 	mapStateToProps,
-	mapDispachToProps
+	mapDispachToProps,
 )(Main);
 
 export default App;
