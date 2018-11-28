@@ -15,7 +15,18 @@ export default class Console extends React.Component {
 		// const { consoleState } = this.props;
 
 		this.commands = {
-			ping: args => this.props.ping(...args),
+			ping: args => this.props.ping_handler(...args),
+			en: () => this.props.enable_handler(),
+			enable: () => this.props.enable_handler(),
+			ip: args => this.props.ip_handler(...args),
+			hostname: args => this.props.hostname_handler(...args),
+			show: args => this.props.show_handler(...args),
+			copy: args => this.props.copy_handler(...args),
+			write: args => this.props.write_handler(...args),
+			conf: args => this.props.configure_handler(...args),
+			configure: args => this.props.configure_handler(...args),
+			exit: () => this.props.exit_handler(),
+			// command pass through handler => match above commands for short literals?
 		};
 	}
 
