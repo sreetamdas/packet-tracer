@@ -14,25 +14,23 @@ export default class Console extends React.Component {
 		this.state = { open: true };
 		// const { consoleState } = this.props;
 
-		this.commands = {
-			en: () => this.props.enable_handler(),
+		this.commands_handler = {
 			enable: () => this.props.enable_handler(),
 			exit: () => this.props.exit_handler(),
-			ping: args => this.props.ping_handler(...args),
+			ping: args => this.props.ping_handler(...args.slice(1)),
 			ip: args => this.props.ip_handler(...args),
 			hostname: args => this.props.hostname_handler(...args),
 			sh: args => this.props.show_handler(...args),
 			cp: args => this.props.copy_handler(...args),
 			write: args => this.props.write_handler(...args),
-			conf: args => this.props.configure_handler(...args),
 			configure: args => this.props.configure_handler(...args),
 			// command pass through handler => match above commands for short literals?
 		};
 	}
 
-	componentDidMount = () => {
-		console.log("commands:", this.commands.conf);
-	};
+	// componentDidMount = () => {
+	// 	console.log("commands:", this.commands.conf);
+	// };
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		console.log("derived");
@@ -57,12 +55,10 @@ export default class Console extends React.Component {
 	};
 
 	handle_shorts = props => {
-		console.log({ props });
-		const cmds = Object.keys(this.commands),
+		const cmds = Object.keys(this.commands_handler),
 			match = cmds.filter(cmd => cmd.includes(props[0]));
 
-		console.log({ cmds }, { match });
-
+		console.log(match);
 		return match.length === 0
 			? "no matching command"
 			: match.length > 1
@@ -97,10 +93,13 @@ export default class Console extends React.Component {
 				> */}
 				<h2>{this.props.console.id}</h2>
 				<Terminal
-					commandPassThrough={(cmd, runCommand) => {
-						console.log(this.handle_shorts(cmd));
+					commandPassThrough={cmd => {
+						this.commands_handler(
+							this.handle_shorts(cmd),
+							cmd.slice(1).join(" "),
+						);
 					}}
-					commands={this.commands}
+					commands={this.commands_handler}
 					color="yellow"
 					prompt="yellow"
 					startState="maximised"

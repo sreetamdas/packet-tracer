@@ -10,7 +10,7 @@ export function active_interface(id, inter_face) {
 	};
 }
 
-export function ping(src, dest) {
+export function ping_handler(src, dest) {
 	console.log("~~~", src, dest);
 	// console.log(this);
 	return (dispatch, getState) => {
@@ -27,16 +27,10 @@ export function ping(src, dest) {
 	};
 }
 
-const enable = () => {
+const enable_handler = () => {
 	console.log("enabling");
 	const active = store.getState().active;
 	console.log("active :", active);
 };
 
-const command = props => {
-	return dispatch => {
-		return commands(props);
-	};
-};
-
-export { enable, command };
+export { enable_handler };
