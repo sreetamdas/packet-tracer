@@ -9,11 +9,11 @@ class Main extends React.Component {
 		return (
 			<div>
 				<PacketTracer {...this.props} />
-				<Console
+				{/* <Console
 					{...this.props}
 					checkConnectivity={checkConnectivity}
 					// commands={commands}
-				/>
+				/> */}
 			</div>
 		);
 	}

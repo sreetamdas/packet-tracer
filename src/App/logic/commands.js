@@ -54,4 +54,25 @@ const commands = (params = []) => {
 	}
 };
 
+const handle_shorts = props => {
+	const commands = [
+		"en",
+		"enable",
+		"exit",
+		"ping",
+		"ip",
+		"hostname",
+		"sh",
+		"cp",
+		"write",
+		"confrr",
+		"configure",
+	],
+	cmd = props.shift();
+
+	console.log("received short:", cmd);
+
+
+};
+
 export default commands;

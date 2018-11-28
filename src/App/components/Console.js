@@ -15,20 +15,24 @@ export default class Console extends React.Component {
 		// const { consoleState } = this.props;
 
 		this.commands = {
-			ping: args => this.props.ping_handler(...args),
 			en: () => this.props.enable_handler(),
 			enable: () => this.props.enable_handler(),
+			exit: () => this.props.exit_handler(),
+			ping: args => this.props.ping_handler(...args),
 			ip: args => this.props.ip_handler(...args),
 			hostname: args => this.props.hostname_handler(...args),
-			show: args => this.props.show_handler(...args),
-			copy: args => this.props.copy_handler(...args),
+			sh: args => this.props.show_handler(...args),
+			cp: args => this.props.copy_handler(...args),
 			write: args => this.props.write_handler(...args),
 			conf: args => this.props.configure_handler(...args),
 			configure: args => this.props.configure_handler(...args),
-			exit: () => this.props.exit_handler(),
 			// command pass through handler => match above commands for short literals?
 		};
 	}
+
+	componentDidMount = () => {
+		console.log("commands:", this.commands.conf);
+	};
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		console.log("derived");
@@ -52,12 +56,28 @@ export default class Console extends React.Component {
 		console.log("redx");
 	};
 
+	handle_shorts = props => {
+		console.log({ props });
+		const cmds = Object.keys(this.commands),
+			match = cmds.filter(cmd => cmd.includes(props[0]));
+
+		console.log({ cmds }, { match });
+
+		return match.length === 0
+			? "no matching command"
+			: match.length > 1
+			? "ambigious command"
+			: match.length === 1
+			? match
+			: "unhandled error";
+	};
+
 	render() {
 		// const { commands } = this.props;
 
 		return (
 			<React.Fragment>
-				<Modal
+				{/* <Modal
 					isOpen={this.state.open}
 					onRequestClose={this.onCloseModal}
 					contentLabel="Example Modal"
@@ -74,19 +94,21 @@ export default class Console extends React.Component {
 							transform: "translate(-50%, -50%)",
 						},
 					}}
-				>
-					<h2>{this.props.console.id}</h2>
-					<Terminal
-						// commandPassThrough={cmd => this.props.command(cmd)}
-						commands={this.commands}
-						color="yellow"
-						prompt="yellow"
-						startState="maximised"
-						allowTabs={false}
-						showActions={false}
-						msg="hello world"
-					/>
-				</Modal>
+				> */}
+				<h2>{this.props.console.id}</h2>
+				<Terminal
+					commandPassThrough={(cmd, runCommand) => {
+						console.log(this.handle_shorts(cmd));
+					}}
+					commands={this.commands}
+					color="yellow"
+					prompt="yellow"
+					startState="maximised"
+					allowTabs={false}
+					showActions={false}
+					msg="hello world"
+				/>
+				{/* </Modal> */}
 			</React.Fragment>
 		);
 	}
