@@ -14,7 +14,7 @@ export default class PacketTracer extends React.Component {
 		return (
 			<React.Fragment>
 				<h1>This is Packet Tracer.</h1>
-				{/* <Nodes {...this.props} checkConnectivity={checkConnectivity} /> */}
+				<Nodes {...this.props} checkConnectivity={checkConnectivity} />
 				<Console {...this.props} />
 			</React.Fragment>
 		);

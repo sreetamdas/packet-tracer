@@ -15,6 +15,22 @@ const console = (state = [], action) => {
 					interface: action.inter_face,
 				},
 			};
+		case "ENABLE CONSOLE":
+			return {
+				...state,
+				active: {
+					...state.active,
+					enabled: true,
+				},
+			};
+		case "EXIT CONSOLE":
+			return {
+				...state,
+				active: {
+					...state.active,
+					enabled: false,
+				},
+			};
 		default:
 			return state;
 	}

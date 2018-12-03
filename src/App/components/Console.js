@@ -54,11 +54,15 @@ export default class Console extends React.Component {
 		console.log("redx");
 	};
 
+	enableConsole = () => {
+		this.props.enable_handler();
+	};
+
 	handle_shorts = props => {
 		const cmds = Object.keys(this.commands_handler),
 			match = cmds.filter(cmd => cmd.includes(props[0]));
 
-		console.log(match);
+		console.log("match:", match);
 		return match.length === 0
 			? "no matching command"
 			: match.length > 1
@@ -73,7 +77,7 @@ export default class Console extends React.Component {
 
 		return (
 			<React.Fragment>
-				{/* <Modal
+				<Modal
 					isOpen={this.state.open}
 					onRequestClose={this.onCloseModal}
 					contentLabel="Example Modal"
@@ -90,24 +94,27 @@ export default class Console extends React.Component {
 							transform: "translate(-50%, -50%)",
 						},
 					}}
-				> */}
+				>
 				<h2>{this.props.console.id}</h2>
-				<Terminal
-					commandPassThrough={cmd => {
-						this.commands_handler(
-							this.handle_shorts(cmd),
-							cmd.slice(1).join(" "),
-						);
-					}}
-					commands={this.commands_handler}
-					color="yellow"
-					prompt="yellow"
-					startState="maximised"
-					allowTabs={false}
-					showActions={false}
-					msg="hello world"
-				/>
-				{/* </Modal> */}
+				<button onClick={this.enableConsole}>Open Terminal</button>
+				{this.props.console.active.enabled ? (
+					<Terminal
+						commandPassThrough={(cmd, runCommand) => {
+							runCommand(`ping 12 344`);
+							// this.handle_shorts(cmd),
+							// cmd.slice(1).join(" "),
+							// show help
+						}}
+						commands={this.commands_handler}
+						color="yellow"
+						prompt="yellow"
+						startState="maximised"
+						allowTabs={false}
+						showActions={false}
+						msg="hello world"
+					/>
+				) : null}
+				</Modal>
 			</React.Fragment>
 		);
 	}

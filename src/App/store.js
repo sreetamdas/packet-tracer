@@ -9,6 +9,7 @@ const defaultState = {
 	console: {
 		open: false,
 		id: null,
+		active: {},
 	},
 	routers: [],
 	switches: [],

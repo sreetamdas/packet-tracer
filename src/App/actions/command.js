@@ -28,9 +28,17 @@ export function ping_handler(src, dest) {
 }
 
 const enable_handler = () => {
-	console.log("enabling");
-	const active = store.getState().active;
-	console.log("active :", active);
+	return {
+		type: "ENABLE CONSOLE"
+	}
 };
 
-export { enable_handler };
+const exit_handler = () => {
+	console.log("exiting")
+	return {
+		type: "EXIT CONSOLE",
+
+	}
+}	
+
+export { enable_handler, exit_handler };
