@@ -11,8 +11,8 @@ import Line from "react-progress-line";
 import { Switch } from "../../assets/icons";
 
 export default class Nodes extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.generateNode = this.generateNode.bind(this);
 		this.generateSwitch = this.generateSwitch.bind(this);
