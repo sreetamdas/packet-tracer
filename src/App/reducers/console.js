@@ -1,6 +1,6 @@
 const console = (state = [], action) => {
 	switch (action.type) {
-		case "SET_CONSOLE_STATE":
+		case "SET_MODAL_STATE":
 			return {
 				...state,
 				open: action.open,

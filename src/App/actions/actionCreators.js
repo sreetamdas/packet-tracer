@@ -49,7 +49,7 @@ export function update_coordinates(index, x, y) {
 
 export function set_console_state(open, id = "none") {
 	return {
-		type: "SET_CONSOLE_STATE",
+		type: "SET_MODAL_STATE",
 		open,
 		id,
 	};
