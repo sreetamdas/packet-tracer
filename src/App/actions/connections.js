@@ -1,3 +1,6 @@
+import store from "../store";
+import { add_router_connection } from "./router";
+
 export function add_connection(first_node, second_node) {
 	const nodes = [first_node, second_node];
 
