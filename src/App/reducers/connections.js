@@ -10,6 +10,12 @@ function connections(state = [], action) {
 				...state,
 				[action.first_node]: pushNode(state[action.first_node], action)
 			};
+		case "ADD_LINE_CONNECTION":
+			console.log({ action });
+			return {
+				...state,
+				[action.first_node]: pushNode(state[action.first_node], action)
+			};
 
 		default:
 			return state;
